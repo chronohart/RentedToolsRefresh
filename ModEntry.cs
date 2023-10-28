@@ -6,6 +6,7 @@ using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.Menus;
+using StardewValley.Objects;
 using StardewValley.Tools;
 
 namespace RentedToolsImproved
@@ -72,7 +73,19 @@ namespace RentedToolsImproved
 
         private Tool GetToolBeingUpgraded(Farmer who)
         {
-            return who.toolBeingUpgraded.Value;
+            if (who.toolBeingUpgraded.Value != null)
+            {
+                if (who.toolBeingUpgraded.Value is Axe || who.toolBeingUpgraded.Value is Pickaxe || who.toolBeingUpgraded.Value is Hoe || who.toolBeingUpgraded.Value is WateringCan)
+                {
+                    return who.toolBeingUpgraded.Value;
+                }
+                else if (who.toolBeingUpgraded.Value is GenericTool)
+                {
+                    return null;
+                }
+            }
+            return null;
+            
         }
 
         private void MenuCloseHandler(object sender, EventArgs e)
@@ -153,7 +166,15 @@ namespace RentedToolsImproved
 
         private bool ShouldOfferTools(Farmer who)
         {
-            return (GetToolBeingUpgraded(who) != null && !this.HasRentedTools(who));
+            if (GetToolBeingUpgraded(who) != null )
+            {
+                return (GetToolBeingUpgraded(who) != null && !this.HasRentedTools(who));
+            }
+            if (GetToolBeingUpgraded(who) == null)
+            {
+                return false;
+            }
+            return false;
         }
 
         private void SetupRentToolsRemovalDialog(Farmer who)
@@ -230,6 +251,7 @@ namespace RentedToolsImproved
 
         private Tool GetRentedToolByTool(Item tool)
         {
+           
             if (tool is Axe)
             {
                 return new Axe();
@@ -257,16 +279,16 @@ namespace RentedToolsImproved
         {
             //Get tool that is gonna be upgraded
             Item toolToBuy = this.GetRentedToolByTool(GetToolBeingUpgraded(who));
-            
             if (toolToBuy == null)
             {
                 return;
             }
             //Sets rental tool quality to the quality of the current tool
-            if (toolToBuy is Tool actual)
+            else if (toolToBuy is Tool actual)
             {
                 actual.UpgradeLevel = GetToolBeingUpgraded(who).upgradeLevel - 1;
             }
+
 
             int toolCost = this.GetToolCost(toolToBuy);
             
