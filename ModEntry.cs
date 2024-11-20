@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
@@ -131,7 +129,7 @@ namespace RentedToolsImproved
 
         private bool IsPlayerAtCounter(Farmer who)
         {
-            return who.currentLocation.Name == "Blacksmith" && this.blacksmithCounterTiles.Contains(who.getTileLocation());
+            return who.currentLocation.Name == "Blacksmith" && this.blacksmithCounterTiles.Contains(who.Tile);
         }
 
         private bool HasRentedTools(Farmer who)
@@ -286,7 +284,7 @@ namespace RentedToolsImproved
             //Sets rental tool quality to the quality of the current tool
             else if (toolToBuy is Tool actual)
             {
-                actual.UpgradeLevel = GetToolBeingUpgraded(who).upgradeLevel - 1;
+                actual.UpgradeLevel = GetToolBeingUpgraded(who).UpgradeLevel - 1;
             }
 
 
