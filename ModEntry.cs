@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using RentedToolsImproved;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -12,6 +13,8 @@ namespace RentedToolsRefresh
    
     public class ModEntry : Mod
     {
+
+        private ModConfig config;
         
         private bool inited;
         private Farmer player;
@@ -28,10 +31,15 @@ namespace RentedToolsRefresh
 
         public override void Entry(IModHelper helper)
         {
-            helper.Events.GameLoop.SaveLoaded += this.Bootstrap;
-            helper.Events.Display.MenuChanged += this.MenuChangedHandler;
+            this.config = Helper.ReadConfig<ModConfig>();
 
-            this.i18n = Helper.Translation;
+            if(config.modEnabled)
+            {
+                helper.Events.GameLoop.SaveLoaded += this.Bootstrap;
+                helper.Events.Display.MenuChanged += this.MenuChangedHandler;
+
+                this.i18n = Helper.Translation;
+            }
         }
 
         private void Bootstrap(object sender, EventArgs e)
