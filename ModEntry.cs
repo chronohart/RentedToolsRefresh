@@ -31,6 +31,8 @@ namespace RentedToolsRefresh
 
         public override void Entry(IModHelper helper)
         {
+            Helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
+
             this.config = Helper.ReadConfig<ModConfig>();
 
             if(config.modEnabled)
@@ -40,6 +42,38 @@ namespace RentedToolsRefresh
 
                 this.i18n = Helper.Translation;
             }
+        }
+
+        private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
+        {
+            // get Generic Mod Config Menu's API (if it's installed)
+            var configMenu = this.Helper.ModRegistry.GetApi<GenericModConfigMenu.IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+            if (configMenu is null)
+                return;
+
+            // register mod
+            configMenu.Register(
+                mod: this.ModManifest,
+                reset: () => this.config = new ModConfig(),
+                save: () => this.Helper.WriteConfig(this.config)
+            );
+
+            // add some config options
+            configMenu.AddBoolOption(
+                mod: this.ModManifest,
+                name: () => "Mod enabled",
+                tooltip: () => "Enable or disable the functioning of Rented Tools Refresh.",
+                getValue: () => this.config.modEnabled,
+                setValue: value => this.config.modEnabled = value
+            );
+            configMenu.AddNumberOption(
+                mod: this.ModManifest,
+                name: () => "Tool rental cost",
+                tooltip: () => "Flat cost to rent a tool.",
+                getValue: () => this.config.toolRentalFee,
+                setValue: value => this.config.toolRentalFee = value,
+                min: 0
+            );
         }
 
         private void Bootstrap(object sender, EventArgs e)
