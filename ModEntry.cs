@@ -7,7 +7,7 @@ using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.Tools;
 
-namespace RentedToolsImproved
+namespace RentedToolsRefresh
 {
    
     public class ModEntry : Mod
