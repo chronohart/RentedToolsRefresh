@@ -20,6 +20,7 @@ namespace RentedToolsImproved
         private bool shouldCreateSucceededToRentTools;
         private bool rentedToolsOffered;
         private bool recycleOffered;
+        private bool skipOfferToolsOnce;
 
         private Dictionary<Tuple<List<Item>, int>, Item> rentedToolRefs;
         private ITranslationHelper i18n;
@@ -44,6 +45,7 @@ namespace RentedToolsImproved
             this.shouldCreateSucceededToRentTools = false;
             this.rentedToolsOffered = false;
             this.recycleOffered = false;
+            this.skipOfferToolsOnce = false;
 
             this.rentedToolRefs = new Dictionary<Tuple<List<Item>, int>, Item>();
             this.blacksmithCounterTiles = new List<Vector2>();
@@ -108,7 +110,14 @@ namespace RentedToolsImproved
                 }
                 else if (this.ShouldOfferTools(this.player))
                 {
-                    this.SetupRentToolsOfferDialog(this.player);
+                    if(this.skipOfferToolsOnce)
+                    {
+                        this.skipOfferToolsOnce = false;
+                    }
+                    else
+                    {
+                        this.SetupRentToolsOfferDialog(this.player);
+                    }
                 }
             }
         }
@@ -202,7 +211,8 @@ namespace RentedToolsImproved
                             this.BuyTempTool(whoInCallback);
                             break;
                         case "Leave":
-                            // do nothing
+                            // set to skip making this offer once in order to prevent this menu from popping off from this very menu closing
+                            this.skipOfferToolsOnce = true;
                             break;
                     }
                     return;
