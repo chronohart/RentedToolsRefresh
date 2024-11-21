@@ -76,13 +76,8 @@ namespace RentedToolsImproved
                 {
                     return who.toolBeingUpgraded.Value;
                 }
-                else if (who.toolBeingUpgraded.Value is GenericTool)
-                {
-                    return null;
-                }
             }
             return null;
-            
         }
 
         private void MenuChangedHandler(object sender, EventArgs e)
@@ -158,10 +153,6 @@ namespace RentedToolsImproved
             if (GetToolBeingUpgraded(who) != null )
             {
                 return (GetToolBeingUpgraded(who) != null && !this.HasRentedTools(who));
-            }
-            if (GetToolBeingUpgraded(who) == null)
-            {
-                return false;
             }
             return false;
         }
