@@ -28,7 +28,7 @@ namespace RentedToolsImproved
         public override void Entry(IModHelper helper)
         {
             helper.Events.GameLoop.SaveLoaded += this.Bootstrap;
-            helper.Events.Display.MenuChanged += this.MenuCloseHandler;
+            helper.Events.Display.MenuChanged += this.MenuChangedHandler;
 
             this.i18n = Helper.Translation;
         }
@@ -64,7 +64,6 @@ namespace RentedToolsImproved
             {
                 Monitor.Log("blacksmith NPC not found", LogLevel.Info);
             }
-
             
             this.inited = true;
         }
@@ -86,37 +85,29 @@ namespace RentedToolsImproved
             
         }
 
-        private void MenuCloseHandler(object sender, EventArgs e)
+        private void MenuChangedHandler(object sender, EventArgs e)
         {
-            if (this.shouldCreateFailedToRentTools)
-            {
-                this.SetupFailedToRentDialog(this.player);
-                this.shouldCreateFailedToRentTools = false;
-                return;
-            }
-
-            if (this.shouldCreateSucceededToRentTools)
-            {
-                this.SetupSucceededToRentDialog(this.player);
-                this.shouldCreateSucceededToRentTools = false;
-                return;
-            }
-
-            if (this.rentedToolsOffered)
-            {
-                this.rentedToolsOffered = false;
-                return;
-            }
-
-            if (this.recycleOffered)
-            {
-                this.recycleOffered = false;
-                return;
-            }
-
             if (this.inited && this.IsPlayerAtCounter(this.player))
             {
-                if (this.player.toolBeingUpgraded.Value == null && this.HasRentedTools(this.player))
+                if (this.shouldCreateFailedToRentTools)
+                {
+                    this.SetupFailedToRentDialog(this.player);
+                    this.shouldCreateFailedToRentTools = false;
+                }
+                else if (this.shouldCreateSucceededToRentTools)
+                {
+                    this.SetupSucceededToRentDialog(this.player);
+                    this.shouldCreateSucceededToRentTools = false;
+                }
+                else if (this.rentedToolsOffered)
+                {
+                    this.rentedToolsOffered = false;
+                }
+                else if (this.recycleOffered)
+                {
+                    this.recycleOffered = false;
+                }
+                else if (this.player.toolBeingUpgraded.Value == null && this.HasRentedTools(this.player))
                 {
                     this.SetupRentToolsRemovalDialog(this.player);
                 }
