@@ -326,9 +326,7 @@ namespace RentedToolsRefresh
 
         private int GetToolCost(Item tool)
         {
-            //Rental is free so toolcost = 0
-            return 0;
+            return config.toolRentalFee;
         }
     }
 }
-    
