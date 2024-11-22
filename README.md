@@ -9,7 +9,7 @@ A mod for Stardew Valley, allowing players to rent a replacement tool when getti
 
 ## Installation
 1. **Install the latest version of [SMAPI](https://smapi.io/).**
-2. **Download Rented Tools Refresh** from [the Releases page on GitHub](https://github.com/chronohart/RentedToolsRefresh/releases).
+2. **Download Rented Tools Refresh** from [the Releases page on GitHub](https://github.com/chronohart/RentedToolsRefresh/releases) or [the mod page on NexusMods](https://www.nexusmods.com/stardewvalley/mods/29611/).
 3. **Unzip RentedToolsRefresh.zip** into the `Stardew Valley\Mods` folder.
 
 ## Configuration
@@ -19,7 +19,7 @@ To edit these options:
 1. **Run the game** using SMAPI. This will generate the mod's **config.json** file in the `Stardew Valley\Mods\RentedToolsRefresh` folder.
 2. **Exit the game** and open the **config.json** file with any text editing program.
 
-This mod also supports [spacechase0](https://github.com/spacechase0)'s [Generic Mod Config Menu](https://spacechase0.com/mods/stardew-valley/generic-mod-config-menu/) (GMCM). Players with that mod will be able to change config.json settings from Stardew's main menu.
+This mod also supports [spacechase0](https://github.com/spacechase0)'s [Generic Mod Config Menu](https://spacechase0.com/mods/stardew-valley/generic-mod-config-menu/) (GMCM). Players with that mod will be able to change config.json settings from within Stardew Valley.
 
 The available settings are:
 

@@ -1,10 +1,10 @@
 ﻿{
 	"Name": "RentedToolsRefresh",
 	"Author": "chronohart",
-	"Version": "1.0.0",
+	"Version": "1.0.1",
 	"Description": "A Stardew Valley mod enabling the player to rent replacement tools while one of their's is being upgraded.",
 	"UniqueID": "chronohart.RentedToolsRefresh",
 	"EntryDll": "RentedToolsRefresh.dll",
 	"MinimumApiVersion": "4.0.0",
-	"UpdateKeys": [ "GitHub:chronohart/RentedToolsRefresh" ]
+	"UpdateKeys": [ "GitHub:chronohart/RentedToolsRefresh", "Nexus:29611" ]
 }
