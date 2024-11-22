@@ -2,7 +2,7 @@
 	"Name": "RentedToolsRefresh",
 	"Author": "chronohart",
 	"Version": "1.0.1",
-	"Description": "A Stardew Valley mod enabling the player to rent replacement tools while one of their's is being upgraded.",
+	"Description": "A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.",
 	"UniqueID": "chronohart.RentedToolsRefresh",
 	"EntryDll": "RentedToolsRefresh.dll",
 	"MinimumApiVersion": "4.0.0",
