@@ -1,18 +1,22 @@
-# Rented Tools Refresh
+![Rented Tools Refresh](images/title.png "Rented Tools Refresh")
+
 A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.
 
 ## Contents
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Planned Features](#planned-features)
+* [Translations](#translations)
 * [Credits](#credits)
 
-## Installation
+<a name="installation"></a>![Installation](images/installation.png "Installation")
+
 1. **Install the latest version of [SMAPI](https://smapi.io/).**
 2. **Download Rented Tools Refresh** from [the Releases page on GitHub](https://github.com/chronohart/RentedToolsRefresh/releases) or [the mod page on NexusMods](https://www.nexusmods.com/stardewvalley/mods/29611/).
 3. **Unzip RentedToolsRefresh.zip** into the `Stardew Valley\Mods` folder.
 
-## Configuration
+<a name="configuration"></a>![Configuration](images/configuration.png "Configuration")
+
 Rented Tools Refresh includes options to enable or disable the functioning of the mod and change the cost to rent.
 
 To edit these options:
@@ -28,17 +32,20 @@ Name | Valid settings | Description
 modEnabled | **true**, false | Disable this to stop the mod from functioning.
 toolRentalFee | numeric, **Default: 0** | Change this to change the cost to rent a tool.
 
-## Planned Features
+<a name="planned-features"></a>![Planned Features](images/planned-features.png "Planned Features")
+
 - Config options to control what level of tool can be rented
 - Add option for daily cost for rentals
 - Translations for all dialog and GMCM menu options
 
-## Translations
+<a name="translations"></a>![Translations](images/translations.png "Translations")
+
 This mod is planned to support translations for all in-game dialog as well as GMCM settings and descriptions. That being said, I only speak English, so translations provided by myself will likely be poor translations from Google Translate or similar. If you would like to submit a translation, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
 
 See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations) page for more information about how these translations work.
 
-## Credits
+<a name="credits"></a>![Credits](images/credits.png "Credits")
+
 This mod is based on the excellent work of SolusCleansing and their RentedToolsImproved mod.
 Mod link: https://www.nexusmods.com/stardewvalley/mods/18909
 Source link: https://github.com/SolusCleansing/RentedToolsImproved
