@@ -7,6 +7,7 @@ A mod for Stardew Valley, allowing players to rent a replacement tool when getti
 * [Configuration](#configuration)
 * [Planned Features](#planned-features)
 * [Translations](#translations)
+* [Incompatibilities](#incompatibilities)
 * [Credits](#credits)
 
 <a name="installation"></a>![Installation](images/installation.png "Installation")
@@ -43,6 +44,10 @@ toolRentalFee | numeric, **Default: 0** | Change this to change the cost to rent
 This mod is planned to support translations for all in-game dialog as well as GMCM settings and descriptions. That being said, I only speak English, so translations provided by myself will likely be poor translations from Google Translate or similar. If you would like to submit a translation, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
 
 See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations) page for more information about how these translations work.
+
+## Incompatibilities
+
+This mod is incompatible with any mods that prevent the standard Tool Upgrade menu or the dialog box when the player receives their upgraded tool from activating. Those two menus being activated and closed are necessary for the functions of this mod to activate.
 
 <a name="credits"></a>![Credits](images/credits.png "Credits")
 

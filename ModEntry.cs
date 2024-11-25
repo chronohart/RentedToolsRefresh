@@ -4,6 +4,7 @@ using RentedToolsImproved;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.GameData.Shops;
 using StardewValley.Menus;
 using StardewValley.Objects;
 using StardewValley.Tools;
@@ -17,13 +18,15 @@ namespace RentedToolsRefresh
         private ModConfig config;
         
         private bool inited;
-        private Farmer player;
+        private Farmer Player;
         private NPC blacksmithNPC;
         private bool shouldCreateFailedToRentTools;
         private bool shouldCreateSucceededToRentTools;
         private bool rentedToolsOffered;
         private bool recycleOffered;
-        private bool skipOfferToolsOnce;
+        private bool SkipOfferToolsOnce;
+
+        private Tool? ToolBeingUpgraded;
 
         private Dictionary<Tuple<List<Item>, int>, Item> rentedToolRefs;
         private ITranslationHelper i18n;
@@ -31,16 +34,16 @@ namespace RentedToolsRefresh
 
         public override void Entry(IModHelper helper)
         {
-            Helper.Events.GameLoop.GameLaunched += this.OnGameLaunched;
+            Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
-            this.config = Helper.ReadConfig<ModConfig>();
+            config = Helper.ReadConfig<ModConfig>();
 
             if(config.modEnabled)
             {
-                helper.Events.GameLoop.SaveLoaded += this.Bootstrap;
-                helper.Events.Display.MenuChanged += this.MenuChangedHandler;
+                helper.Events.GameLoop.SaveLoaded += Bootstrap;
+                Helper.Events.Display.MenuChanged += OnMenuChanged;
 
-                this.i18n = Helper.Translation;
+                i18n = Helper.Translation;
             }
         }
 
@@ -80,20 +83,20 @@ namespace RentedToolsRefresh
         {
             
             this.inited = false;
-            this.player = null;
+            this.Player = null;
             this.blacksmithNPC = null;
 
             this.shouldCreateFailedToRentTools = false;
             this.shouldCreateSucceededToRentTools = false;
             this.rentedToolsOffered = false;
             this.recycleOffered = false;
-            this.skipOfferToolsOnce = false;
+            this.SkipOfferToolsOnce = false;
 
             this.rentedToolRefs = new Dictionary<Tuple<List<Item>, int>, Item>();
             this.blacksmithCounterTiles = new List<Vector2>();
 
             
-            this.player = Game1.player;
+            this.Player = Game1.player;
             this.blacksmithCounterTiles.Add(new Vector2(3f, 15f));
             foreach (NPC npc in Utility.getAllCharacters())
             {
@@ -108,8 +111,149 @@ namespace RentedToolsRefresh
             {
                 Monitor.Log("blacksmith NPC not found", LogLevel.Info);
             }
+
+            if(Player.toolBeingUpgraded != null)
+            {
+                ToolBeingUpgraded = Player.toolBeingUpgraded.Value;
+            }
             
             this.inited = true;
+        }
+
+        private void OnMenuChanged(object sender, MenuChangedEventArgs e)
+        {
+            if (this.inited && this.IsPlayerAtCounter(this.Player))
+            {
+                //*********************************************
+                // Upon receiving upgraded tool:
+                //  e.NewMenu == DialogueBox with .dialogues containing:
+                //      You received {a/an} {upgrade level} {tool}!
+                //    closing sends this dialogue to e.OldMenu
+                //  e.NewMenu == DialogueBox with .dialogues containing (awaiting answer):
+                //      Can you hand me over that rental tool I gave you?
+                //    choosing an answer sends this dialogue to e.OldMenu
+                // Cancel out of Upgrade Tool:
+                //  e.OldMenu == ShopMenu.ShopId == "ClintUpgrade"
+                // Upon purchasing Upgrade Tool:
+                //  e.OldMenu == ShopMenu.ShopId == "ClintUpgrade"
+                //  e.NewMenu == DialogueBox with .CharacterDialogue.dialogues containing:
+                //      Thanks. I'll get started on this as soon as I can. It should be ready in a couple days.
+                //    closing sends this dialogue to e.OldMenu
+                //  e.NewMenu == DialogueBox with .dialogues containing (awaiting answer):
+                //      You can take my old {tool} while I'm upgrading your {new upgrade level} {tool}.
+                //    answering sends this dialogue to e.OldMenu
+                // Selecting Upgrade Tools while upgrade in process:
+                //  e.OldMenu == DialogueBox with .dialogues empty
+                //  e.NewMenu == DialogueBox with .CharacterDialogue.dialogues containing:
+                //      Um, I'm still working on your {upgrade level} {tool}. It won't be ready today.
+                //    closing sends this dialogue to e.OldMenu
+                // Trying to take a rental without enough money:
+                //  ************
+                //  currently broken. simply makes rental offer again with no message about cost
+                //*********************************************
+                if (shouldCreateFailedToRentTools)
+                {
+                    SetupFailedToRentDialog(Player);
+                    shouldCreateFailedToRentTools = false;
+                }
+                else if (shouldCreateSucceededToRentTools)
+                {
+                    SetupSucceededToRentDialog(Player);
+                    shouldCreateSucceededToRentTools = false;
+                }
+                else if (rentedToolsOffered)
+                {
+                    rentedToolsOffered = false;
+                }
+                else if (recycleOffered)
+                {
+                    recycleOffered = false;
+                }
+                else if (Player.toolBeingUpgraded.Value == null && HasRentedTools(Player))
+                {
+                    SetupRentToolsRemovalDialog(Player);
+                }
+                else if (ShouldOfferTools(Player))
+                {
+                    if (SkipOfferToolsOnce)
+                    {
+                        SkipOfferToolsOnce = false;
+                    }
+                    else
+                    {
+                        SetupRentToolsOfferDialog(Player);
+                    }
+                }
+
+                
+                else if (ShouldOfferRental(e))
+                {
+                    SetupRentToolsOfferDialog(Player);
+                }
+            }
+        }
+
+        private bool RentalFailed(MenuChangedEventArgs e)
+        {
+            bool result = false;
+
+            return result;
+        }
+
+        private bool RentalSucceeded(MenuChangedEventArgs e)
+        {
+            bool result = false;
+
+            return result;
+        }
+
+        private bool ShouldOfferRental(MenuChangedEventArgs e)
+        {
+            bool result = false;
+
+            if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
+            {
+                foreach(DialogueLine dialogueLine in dialogueBox.characterDialogue.dialogues)
+                {
+                    if(dialogueLine.Text == blacksmithNPC.TryGetDialogue())//"Thanks. I'll get started on this as soon as I can. It should be ready in a couple days.")
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        private bool ShouldReturnRental(MenuChangedEventArgs e)
+        {
+            bool result = false;
+
+            if(e.NewMenu != null && e.NewMenu is DialogueBox dialogueBox)
+            {
+                if(ToolBeingUpgraded != null)
+                {
+                    string dialogueToMatch = "You receieved ";
+                    if(ToolBeingUpgraded.UpgradeLevel == 2 || ToolBeingUpgraded.UpgradeLevel == 4)
+                    {
+                        dialogueToMatch += "an " + ToolBeingUpgraded.DisplayName + "!";
+                    }
+                    else
+                    {
+                        dialogueToMatch += "a " + ToolBeingUpgraded.DisplayName + "!";
+                    }
+                    foreach(string dialogue in dialogueBox.dialogues)
+                    {
+                        if(dialogue == dialogueToMatch)
+                        {
+                            ToolBeingUpgraded = null;
+                            result = true;
+                        }
+                    }
+                }
+            }
+
+            return result;
         }
 
         private Tool GetToolBeingUpgraded(Farmer who)
@@ -122,46 +266,6 @@ namespace RentedToolsRefresh
                 }
             }
             return null;
-        }
-
-        private void MenuChangedHandler(object sender, EventArgs e)
-        {
-            if (this.inited && this.IsPlayerAtCounter(this.player))
-            {
-                if (this.shouldCreateFailedToRentTools)
-                {
-                    this.SetupFailedToRentDialog(this.player);
-                    this.shouldCreateFailedToRentTools = false;
-                }
-                else if (this.shouldCreateSucceededToRentTools)
-                {
-                    this.SetupSucceededToRentDialog(this.player);
-                    this.shouldCreateSucceededToRentTools = false;
-                }
-                else if (this.rentedToolsOffered)
-                {
-                    this.rentedToolsOffered = false;
-                }
-                else if (this.recycleOffered)
-                {
-                    this.recycleOffered = false;
-                }
-                else if (this.player.toolBeingUpgraded.Value == null && this.HasRentedTools(this.player))
-                {
-                    this.SetupRentToolsRemovalDialog(this.player);
-                }
-                else if (this.ShouldOfferTools(this.player))
-                {
-                    if(this.skipOfferToolsOnce)
-                    {
-                        this.skipOfferToolsOnce = false;
-                    }
-                    else
-                    {
-                        this.SetupRentToolsOfferDialog(this.player);
-                    }
-                }
-            }
         }
 
         private bool IsPlayerAtCounter(Farmer who)
@@ -254,7 +358,7 @@ namespace RentedToolsRefresh
                             break;
                         case "Leave":
                             // set to skip making this offer once in order to prevent this menu from popping off from this very menu closing
-                            this.skipOfferToolsOnce = true;
+                            this.SkipOfferToolsOnce = true;
                             break;
                     }
                     return;
