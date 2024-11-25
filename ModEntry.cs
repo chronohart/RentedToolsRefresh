@@ -19,12 +19,11 @@ namespace RentedToolsRefresh
         
         private bool inited;
         private Farmer Player;
-        private NPC blacksmithNPC;
+        private NPC BlacksmithNPC;
         private bool shouldCreateFailedToRentTools;
         private bool shouldCreateSucceededToRentTools;
         private bool rentedToolsOffered;
         private bool recycleOffered;
-        private bool SkipOfferToolsOnce;
 
         private Tool? ToolBeingUpgraded;
 
@@ -84,13 +83,12 @@ namespace RentedToolsRefresh
             
             this.inited = false;
             this.Player = null;
-            this.blacksmithNPC = null;
+            this.BlacksmithNPC = null;
 
             this.shouldCreateFailedToRentTools = false;
             this.shouldCreateSucceededToRentTools = false;
             this.rentedToolsOffered = false;
             this.recycleOffered = false;
-            this.SkipOfferToolsOnce = false;
 
             this.rentedToolRefs = new Dictionary<Tuple<List<Item>, int>, Item>();
             this.blacksmithCounterTiles = new List<Vector2>();
@@ -102,12 +100,12 @@ namespace RentedToolsRefresh
             {
                 if (npc.Name == "Clint")
                 {
-                    this.blacksmithNPC = npc;
+                    this.BlacksmithNPC = npc;
                     break;
                 }
             }
 
-            if (this.blacksmithNPC == null)
+            if (this.BlacksmithNPC == null)
             {
                 Monitor.Log("blacksmith NPC not found", LogLevel.Info);
             }
@@ -132,36 +130,8 @@ namespace RentedToolsRefresh
                 //  e.NewMenu == DialogueBox with .dialogues containing (awaiting answer):
                 //      Can you hand me over that rental tool I gave you?
                 //    choosing an answer sends this dialogue to e.OldMenu
-                // Cancel out of Upgrade Tool:
-                //  e.OldMenu == ShopMenu.ShopId == "ClintUpgrade"
-                // Upon purchasing Upgrade Tool:
-                //  e.OldMenu == ShopMenu.ShopId == "ClintUpgrade"
-                //  e.NewMenu == DialogueBox with .CharacterDialogue.dialogues containing:
-                //      Thanks. I'll get started on this as soon as I can. It should be ready in a couple days.
-                //    closing sends this dialogue to e.OldMenu
-                //  e.NewMenu == DialogueBox with .dialogues containing (awaiting answer):
-                //      You can take my old {tool} while I'm upgrading your {new upgrade level} {tool}.
-                //    answering sends this dialogue to e.OldMenu
-                // Selecting Upgrade Tools while upgrade in process:
-                //  e.OldMenu == DialogueBox with .dialogues empty
-                //  e.NewMenu == DialogueBox with .CharacterDialogue.dialogues containing:
-                //      Um, I'm still working on your {upgrade level} {tool}. It won't be ready today.
-                //    closing sends this dialogue to e.OldMenu
-                // Trying to take a rental without enough money:
-                //  ************
-                //  currently broken. simply makes rental offer again with no message about cost
                 //*********************************************
-                if (shouldCreateFailedToRentTools)
-                {
-                    SetupFailedToRentDialog(Player);
-                    shouldCreateFailedToRentTools = false;
-                }
-                else if (shouldCreateSucceededToRentTools)
-                {
-                    SetupSucceededToRentDialog(Player);
-                    shouldCreateSucceededToRentTools = false;
-                }
-                else if (rentedToolsOffered)
+                if (rentedToolsOffered)
                 {
                     rentedToolsOffered = false;
                 }
@@ -322,7 +292,7 @@ namespace RentedToolsRefresh
                     }
                     return;
                 },
-                this.blacksmithNPC
+                this.BlacksmithNPC
             );
             this.recycleOffered = true;
         }
@@ -331,31 +301,29 @@ namespace RentedToolsRefresh
         {
             who.currentLocation.createQuestionDialogue(
                 i18n.Get("Blacksmith_OfferTools_Menu",
-                new
-                {
-                    oldToolName = GetRentedToolByTool(GetToolBeingUpgraded(who))?.DisplayName,
-                    newToolName = GetToolBeingUpgraded(who)?.DisplayName
-                }),
-                new Response[2]
-                {
-                    new Response("Confirm", i18n.Get("Blacksmith_OfferToolsMenu_Confirm")),
-                    new Response("Leave", i18n.Get("Blacksmith_OfferToolsMenu_Leave")),
-                },
-                (Farmer whoInCallback, string whichAnswer) =>
-                {
-                    switch (whichAnswer)
+                    new
                     {
-                        case "Confirm":
-                            this.BuyTempTool(whoInCallback);
-                            break;
-                        case "Leave":
-                            // set to skip making this offer once in order to prevent this menu from popping off from this very menu closing
-                            this.SkipOfferToolsOnce = true;
-                            break;
-                    }
-                    return;
-                },
-                this.blacksmithNPC
+                        oldToolName = GetRentedToolByTool(GetToolBeingUpgraded(who))?.DisplayName,
+                        newToolName = GetToolBeingUpgraded(who)?.DisplayName
+                    }),
+                new Response[2]
+                    {
+                        new Response("Confirm", i18n.Get("Blacksmith_OfferToolsMenu_Confirm")),
+                        new Response("Leave", i18n.Get("Blacksmith_OfferToolsMenu_Leave")),
+                    },
+                (Farmer whoInCallback, string whichAnswer) =>
+                    {
+                        switch (whichAnswer)
+                        {
+                            case "Confirm":
+                                BuyTempTool(whoInCallback);
+                                break;
+                            case "Leave":
+                                break;
+                        }
+                        return;
+                    },
+                BlacksmithNPC
             );
             rentedToolsOffered = true;
         }
@@ -406,7 +374,7 @@ namespace RentedToolsRefresh
         private void BuyTempTool(Farmer who)
         {
             //Get tool that is gonna be upgraded
-            Item toolToBuy = this.GetRentedToolByTool(GetToolBeingUpgraded(who));
+            Item toolToBuy = GetRentedToolByTool(GetToolBeingUpgraded(who));
             if (toolToBuy == null)
             {
                 return;
@@ -417,21 +385,22 @@ namespace RentedToolsRefresh
                 actual.UpgradeLevel = GetToolBeingUpgraded(who).UpgradeLevel - 1;
             }
 
+            int toolCost = GetToolCost(toolToBuy);
 
-            int toolCost = this.GetToolCost(toolToBuy);
-            
-            if (who.Money >= toolCost && who.freeSpotsInInventory() > 0)
+            if(who.Money < toolCost)
             {
-                
-                ShopMenu.chargePlayer(who, 0, toolCost);
-                Item item = who.addItemToInventory(toolToBuy);
-                this.shouldCreateSucceededToRentTools = true;
+                SetupFailedToRentDialog(Player);
+            }
+            else if(who.freeSpotsInInventory() <= 0)
+            {
+                SetupFailedToRentDialog(Player);
             }
             else
-            {
-                this.shouldCreateFailedToRentTools = true;
+            {   
+                ShopMenu.chargePlayer(who, 0, toolCost);
+                Item item = who.addItemToInventory(toolToBuy);
+                SetupSucceededToRentDialog(Player);
             }
-
         }
 
         private void RecycleTempTools(Farmer who)
