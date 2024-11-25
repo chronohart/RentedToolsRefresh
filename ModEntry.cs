@@ -173,18 +173,6 @@ namespace RentedToolsRefresh
                 {
                     SetupRentToolsRemovalDialog(Player);
                 }
-                else if (ShouldOfferTools(Player))
-                {
-                    if (SkipOfferToolsOnce)
-                    {
-                        SkipOfferToolsOnce = false;
-                    }
-                    else
-                    {
-                        SetupRentToolsOfferDialog(Player);
-                    }
-                }
-
                 
                 else if (ShouldOfferRental(e))
                 {
@@ -213,11 +201,15 @@ namespace RentedToolsRefresh
 
             if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
             {
-                foreach(DialogueLine dialogueLine in dialogueBox.characterDialogue.dialogues)
+                if(dialogueBox.characterDialogue != null)
                 {
-                    if(dialogueLine.Text == blacksmithNPC.TryGetDialogue())//"Thanks. I'll get started on this as soon as I can. It should be ready in a couple days.")
+                    // first, ensure the offer is only ever made after one of two very specific lines of dialogue
+                    if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
+                        || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
                     {
-                        result = true;
+                        // next, ensure player doesn't already have a rented tool
+                        if(HasRentedTools(Player) == false)
+                            result = true;
                     }
                 }
             }

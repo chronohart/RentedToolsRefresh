@@ -47,7 +47,10 @@ See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.c
 
 ## Incompatibilities
 
-This mod is incompatible with any mods that prevent the standard Tool Upgrade menu or the dialog box when the player receives their upgraded tool from activating. Those two menus being activated and closed are necessary for the functions of this mod to activate.
+This mod is incompatible with any mods that prevent the following standard dialogs from activating, while standing in front of Clint's shop counter:
+- "Thanks. I'll get started..." upon purchasing a tool upgrade
+- "Um, I'm still working..." upon selecting "Upgrade Tool" while a tool upgrade is already in process
+- "You received..." dialog when the player receives their upgraded tool
 
 <a name="credits"></a>![Credits](images/credits.png "Credits")
 
