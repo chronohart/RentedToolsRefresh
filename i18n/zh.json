@@ -1,0 +1,11 @@
+﻿{
+	"Blacksmith_RecycleTools_Menu": "可以把我借你的工具还给我吗？",
+	"Blacksmith_RecycleToolsMenu_Confirm": "当然",
+	"Blacksmith_RecycleToolsMenu_Leave": "现在不行",
+	"Blacksmith_OfferTools_Menu": "在升级你{{newToolName}}的这段时间里，你可以先拿着我的老{{oldToolName}}用。",
+	"Blacksmith_OfferToolsMenu_Confirm": "好的",
+	"Blacksmith_OfferToolsMenu_Leave": "谢谢，不用了",
+	"Blacksmith_HowToReturn": "如果你想归还借走的工具，把它带在你身上就行。",
+	"Blacksmith_NoInventorySpace": "你的物品栏满了。",
+	"Blacksmith_InsufficientFundsToRentTool": "你没有足够的钱。"
+}
