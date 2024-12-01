@@ -114,19 +114,6 @@ namespace RentedToolsRefresh
                 {
                     SetupRentToolsOfferDialog(Player);
                 }
-                //*********************************************
-                // Upon receiving upgraded tool:
-                //  e.NewMenu == DialogueBox with .dialogues containing:
-                //      You received {a/an} {upgrade level} {tool}!
-                //    closing sends this dialogue to e.OldMenu
-                //  e.NewMenu == DialogueBox with .dialogues containing (awaiting answer):
-                //      Can you hand me over that rental tool I gave you?
-                //    choosing an answer sends this dialogue to e.OldMenu
-                //*********************************************
-                // if (Player.toolBeingUpgraded.Value == null && HasRentedTools(Player))
-                // {
-                //     SetupRentToolsRemovalDialog(Player);
-                // }                
                 else if (ShouldReturnRental(e))
                 {
                     SetupRentToolsRemovalDialog(Player);
@@ -149,8 +136,7 @@ namespace RentedToolsRefresh
                             || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
                         {
                             // next, ensure player doesn't already have a rented tool
-                            if(HasRentedTools(Player) == false)
-                                result = true;
+                            result = HasRentedTools(Player) == false;
                         }
                     }
                 }
@@ -163,70 +149,15 @@ namespace RentedToolsRefresh
         {
             bool result = false;
 
-            if(Game1.activeClickableMenu == null)
+            if(Game1.activeClickableMenu == null
+                && Player.toolBeingUpgraded.Value == null
+                && e.NewMenu == null)
             {
-                if(Player.toolBeingUpgraded.Value == null)
+                if(e.OldMenu != null
+                    && ((e.OldMenu is DialogueBox dialogueBox && dialogueBox.dialogues.FirstOrDefault() != i18n.Get("Blacksmith_RecycleTools_Menu"))
+                        || (e.OldMenu is ShopMenu shopMenu && shopMenu.ShopId == "Blacksmith")))
                 {
-                    // take rentals immediately after receiving upgraded tool back
-                    if(e.OldMenu != null)
-                    {
-                        Monitor.Log(e.OldMenu.GetType().ToString());
-                        // Monitor.Log("***");
-                        // Monitor.Log(" dialogueBox.dialogues ");
-                        // Monitor.Log("***");
-                        // foreach(string line in dialogueBox.dialogues)
-                        //     Monitor.Log(line);
-                        // Monitor.Log("***");
-                        // Monitor.Log(" dialogueBox.characterDialogue.dialogues ");
-                        // Monitor.Log("***");
-                        // if(dialogueBox.characterDialogue != null)
-                        //     foreach(DialogueLine line in dialogueBox.characterDialogue.dialogues)
-                        //         Monitor.Log(line.Text);
-                        // Monitor.Log("END");
-                    }
-
-                    // take rentals before starting any other dialogue
-
-
-                    Monitor.Log("*** Player.toolBeingUpgraded.Value == null");
-                    if (e.NewMenu == null)
-                    {
-                        Monitor.Log("**** e.NewMenu == null");
-                        if(e.OldMenu != null)
-                        {
-                            Monitor.Log("***** e.OldMenu != null");
-                            if (e.OldMenu is DialogueBox dialogueBox1)
-                            {
-                                Monitor.Log("****** e.OldMenu is DialogueBox");
-                                if((dialogueBox1.dialogues != null && dialogueBox1.dialogues.Count > 0 ))
-                                {
-                                    Monitor.Log("******* dialogueBox.dialogues.Any()");
-                                    if((dialogueBox1.dialogues.Contains(i18n.Get("Blacksmith_RecycleTools_Menu")) == false))
-                                    {
-                                        Monitor.Log("******* dialogueBox.dialogues contains");
-                                        result = HasRentedTools(Player);
-                                    }
-                                }
-                                else if((dialogueBox1.characterDialogue != null))
-                                {
-                                    Monitor.Log("******* dialogueBox.characterDialogue != null");
-                                    if((dialogueBox1.characterDialogue.dialogues != null && dialogueBox1.characterDialogue.dialogues.Count > 0))
-                                    {
-                                        Monitor.Log("******* dialogueBox.characterDialogue.dialogues.Any()");
-                                        result = HasRentedTools(Player);
-                                    }
-                                }
-                                else
-                                    Monitor.Log("******* e.OldMenu failed to match the dialogue conditions");
-                            }
-                            else
-                                Monitor.Log("****** e.OldMenu is NOT DialogueBox");
-                        }
-                        else
-                            Monitor.Log("***** e.OldMenu == null");
-                    }
-                    else
-                        Monitor.Log("**** e.NewMenu != null");
+                    result = HasRentedTools(Player);
                 }
             }
 
@@ -263,18 +194,14 @@ namespace RentedToolsRefresh
 
             if (GetToolBeingUpgraded(who) != null)
             {
-                Monitor.Log("*** HasRentedTools: Tool is being upgraded");
                 result = tools.Exists(item => item.GetType().IsInstanceOfType(this.GetToolBeingUpgraded(who)));
             }
             else
             {
-                Monitor.Log("*** HasRentedTools: Tool is not being upgraded");
                 foreach (Tool tool in tools)
                 {
-                    Monitor.Log($"**** HasRentedTools: checking {tool.DisplayName}");
                     if (tools.Exists(item => item.Equals(tool) == false && item.GetType().IsInstanceOfType(tool) && item.UpgradeLevel <= tool.UpgradeLevel))
                     {
-                        Monitor.Log("***** HasRentedTools: found a match");
                         result = true;
                         break;
                     }
@@ -350,6 +277,7 @@ namespace RentedToolsRefresh
             else
             {
                 Game1.drawObjectDialogue(i18n.Get("Blacksmith_InsufficientFundsToRentTool"));
+                //Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney1"));
             }
         }
 
@@ -420,19 +348,15 @@ namespace RentedToolsRefresh
                 .OfType<Tool>()
                 .ToList();
 
-            List<Tool> toolsToCheck = tools.ToList();
             List<Tool> toolsToRemove = new List<Tool>();
             foreach (Tool tool in tools)
             {
-                toolsToCheck.Remove(tool);
-                toolsToRemove = toolsToCheck.Where(w => w.Equals(tool) == false && w.GetType().IsInstanceOfType(tool) && w.UpgradeLevel <= tool.UpgradeLevel).ToList();
-                if(toolsToRemove.Count > 0)
-                    toolsToCheck.RemoveAll(ra => toolsToRemove.Contains(ra));
+                if(tools.Exists(e => e.GetType().IsInstanceOfType(tool) && e.UpgradeLevel > tool.UpgradeLevel))
+                    toolsToRemove.Add(tool);
             }
 
             foreach (Tool tool in toolsToRemove)
             {
-                Monitor.Log("*********** Processing RecycleTempTools");
                 who.removeItemFromInventory(tool);
             }
         }
