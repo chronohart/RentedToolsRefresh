@@ -1,12 +1,9 @@
-﻿using System;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using RentedToolsImproved;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
-using StardewValley.GameData.Shops;
 using StardewValley.Menus;
-using StardewValley.Objects;
 using StardewValley.Tools;
 
 namespace RentedToolsRefresh
@@ -20,10 +17,6 @@ namespace RentedToolsRefresh
         private bool inited;
         private Farmer Player;
         private NPC BlacksmithNPC;
-
-        private Tool? ToolBeingUpgraded;
-
-        private Dictionary<Tuple<List<Item>, int>, Item> rentedToolRefs;
         private ITranslationHelper i18n;
         private List<Vector2> blacksmithCounterTiles = new List<Vector2>();
 
@@ -78,7 +71,6 @@ namespace RentedToolsRefresh
             this.Player = null;
             this.BlacksmithNPC = null;
 
-            this.rentedToolRefs = new Dictionary<Tuple<List<Item>, int>, Item>();
             this.blacksmithCounterTiles = new List<Vector2>();
 
             
@@ -96,11 +88,6 @@ namespace RentedToolsRefresh
             if (this.BlacksmithNPC == null)
             {
                 Monitor.Log("blacksmith NPC not found", LogLevel.Info);
-            }
-
-            if(Player.toolBeingUpgraded != null)
-            {
-                ToolBeingUpgraded = Player.toolBeingUpgraded.Value;
             }
             
             this.inited = true;
