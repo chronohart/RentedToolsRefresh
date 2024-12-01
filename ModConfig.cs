@@ -1,4 +1,4 @@
-namespace RentedToolsImproved
+namespace RentedToolsRefresh
 {
     public sealed class ModConfig
     {
@@ -8,9 +8,9 @@ namespace RentedToolsImproved
 
         public ModConfig()
         {
-            this.modEnabled = true;
+            modEnabled = true;
             
-            this.toolRentalFee = 0;
+            toolRentalFee = 0;
         }
     }
 }

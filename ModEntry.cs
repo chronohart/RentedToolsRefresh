@@ -1,5 +1,4 @@
 ﻿using Microsoft.Xna.Framework;
-using RentedToolsImproved;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -12,90 +11,87 @@ namespace RentedToolsRefresh
     public class ModEntry : Mod
     {
 
-        private ModConfig config;
-        
-        private bool inited;
-        private Farmer Player;
-        private NPC BlacksmithNPC;
+        private ModConfig Config = new ModConfig();
+        private bool Inited;
+        private Farmer Player = new Farmer();
+        private NPC? BlacksmithNPC;
         private ITranslationHelper i18n;
-        private List<Vector2> blacksmithCounterTiles = new List<Vector2>();
+        private List<Vector2> BlacksmithCounterTiles = new List<Vector2>();
 
         public override void Entry(IModHelper helper)
         {
             Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
-            config = Helper.ReadConfig<ModConfig>();
+            i18n = Helper.Translation;
+
+            Config = Helper.ReadConfig<ModConfig>();
 
             helper.Events.GameLoop.SaveLoaded += Bootstrap;
             Helper.Events.Display.MenuChanged += OnMenuChanged;
-
-            i18n = Helper.Translation;
         }
 
         private void OnGameLaunched(object? sender, GameLaunchedEventArgs e)
         {
             // get Generic Mod Config Menu's API (if it's installed)
-            var configMenu = this.Helper.ModRegistry.GetApi<GenericModConfigMenu.IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
+            var configMenu = Helper.ModRegistry.GetApi<GenericModConfigMenu.IGenericModConfigMenuApi>("spacechase0.GenericModConfigMenu");
             if (configMenu is null)
                 return;
 
             // register mod
             configMenu.Register(
-                mod: this.ModManifest,
-                reset: () => this.config = new ModConfig(),
-                save: () => this.Helper.WriteConfig(this.config)
+                mod: ModManifest,
+                reset: () => Config = new ModConfig(),
+                save: () => Helper.WriteConfig(Config)
             );
 
             // add some config options
             configMenu.AddBoolOption(
-                mod: this.ModManifest,
+                mod: ModManifest,
                 name: () => "Mod enabled",
                 tooltip: () => "Enable or disable the functioning of Rented Tools Refresh.",
-                getValue: () => this.config.modEnabled,
-                setValue: value => this.config.modEnabled = value
+                getValue: () => Config.modEnabled,
+                setValue: value => Config.modEnabled = value
             );
             configMenu.AddNumberOption(
-                mod: this.ModManifest,
+                mod: ModManifest,
                 name: () => "Tool rental cost",
                 tooltip: () => "Flat cost to rent a tool.",
-                getValue: () => this.config.toolRentalFee,
-                setValue: value => this.config.toolRentalFee = value,
+                getValue: () => Config.toolRentalFee,
+                setValue: value => Config.toolRentalFee = value,
                 min: 0
             );
         }
 
-        private void Bootstrap(object sender, EventArgs e)
+        private void Bootstrap(object? sender, EventArgs e)
         {
             
-            this.inited = false;
-            this.Player = null;
-            this.BlacksmithNPC = null;
+            Inited = false;
+            BlacksmithNPC = null;
 
-            this.blacksmithCounterTiles = new List<Vector2>();
+            BlacksmithCounterTiles = new List<Vector2>();
 
-            
-            this.Player = Game1.player;
-            this.blacksmithCounterTiles.Add(new Vector2(3f, 15f));
+            Player = Game1.player;
+            BlacksmithCounterTiles.Add(new Vector2(3f, 15f));
             foreach (NPC npc in Utility.getAllCharacters())
             {
                 if (npc.Name == "Clint")
                 {
-                    this.BlacksmithNPC = npc;
+                    BlacksmithNPC = npc;
                     break;
                 }
             }
 
-            if (this.BlacksmithNPC == null)
+            if (BlacksmithNPC == null)
             {
                 Monitor.Log("blacksmith NPC not found", LogLevel.Info);
             }
             
-            this.inited = true;
+            Inited = true;
         }
 
-        private void OnMenuChanged(object sender, MenuChangedEventArgs e)
+        private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
-            if (config.modEnabled && inited && IsPlayerAtCounter(Player))
+            if (Config.modEnabled && Inited && IsPlayerAtCounter(Player))
             {
                 if (ShouldOfferRental(e))
                 {
@@ -151,7 +147,7 @@ namespace RentedToolsRefresh
             return result;
         }
 
-        private Tool GetToolBeingUpgraded(Farmer who)
+        private Tool? GetToolBeingUpgraded(Farmer who)
         {
             if (who.toolBeingUpgraded.Value != null)
             {
@@ -165,7 +161,7 @@ namespace RentedToolsRefresh
 
         private bool IsPlayerAtCounter(Farmer who)
         {
-            return who.currentLocation.Name == "Blacksmith" && this.blacksmithCounterTiles.Contains(who.Tile);
+            return who.currentLocation.Name == "Blacksmith" && BlacksmithCounterTiles.Contains(who.Tile);
         }
 
         private bool HasRentedTools(Farmer who)
@@ -181,7 +177,7 @@ namespace RentedToolsRefresh
 
             if (GetToolBeingUpgraded(who) != null)
             {
-                result = tools.Exists(item => item.GetType().IsInstanceOfType(this.GetToolBeingUpgraded(who)));
+                result = tools.Exists(item => item.GetType().IsInstanceOfType(GetToolBeingUpgraded(who)));
             }
             else
             {
@@ -268,10 +264,13 @@ namespace RentedToolsRefresh
             }
         }
 
-        private Tool GetRentedToolByTool(Item tool)
+        private Tool? GetRentedToolByTool(Item? tool)
         {
-           
-            if (tool is Axe)
+            if(tool == null)
+            {
+                return null;
+            }
+            else if (tool is Axe)
             {
                 return new Axe();
             }
@@ -296,16 +295,16 @@ namespace RentedToolsRefresh
 
         private void BuyTempTool(Farmer who)
         {
-            //Get tool that is gonna be upgraded
-            Item toolToBuy = GetRentedToolByTool(GetToolBeingUpgraded(who));
-            if (toolToBuy == null)
+            Tool? toolBeingUpgraded = GetToolBeingUpgraded(who);
+            Item? toolToBuy = GetRentedToolByTool(toolBeingUpgraded);
+            if (toolBeingUpgraded == null || toolToBuy == null)
             {
                 return;
             }
-            //Sets rental tool quality to the quality of the current tool
             else if (toolToBuy is Tool actual)
             {
-                actual.UpgradeLevel = GetToolBeingUpgraded(who).UpgradeLevel - 1;
+                //Sets rental tool quality to the quality of the current tool
+                actual.UpgradeLevel = toolBeingUpgraded.UpgradeLevel - 1;
             }
 
             int toolCost = GetToolCost(toolToBuy);
@@ -350,7 +349,7 @@ namespace RentedToolsRefresh
 
         private int GetToolCost(Item tool)
         {
-            return config.toolRentalFee;
+            return Config.toolRentalFee;
         }
     }
 }
