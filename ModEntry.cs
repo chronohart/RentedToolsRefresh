@@ -11,18 +11,18 @@ namespace RentedToolsRefresh
     public class ModEntry : Mod
     {
 
-        private ModConfig Config = new ModConfig();
+        private ModConfig Config;
         private bool IsInited;
-        private Farmer Player = new Farmer();
+        private Farmer Player;
         private NPC? BlacksmithNPC;
         private ITranslationHelper i18n;
-        private List<Vector2> BlacksmithCounterTiles = new List<Vector2>();
+        private List<Vector2> BlacksmithCounterTiles;
 
         public override void Entry(IModHelper helper)
         {
-            Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-
             i18n = Helper.Translation;
+
+            Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
             Config = Helper.ReadConfig<ModConfig>();
 
