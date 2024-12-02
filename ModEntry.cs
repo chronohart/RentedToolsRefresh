@@ -12,7 +12,7 @@ namespace RentedToolsRefresh
     {
 
         private ModConfig Config = new ModConfig();
-        private bool Inited;
+        private bool IsInited;
         private Farmer Player = new Farmer();
         private NPC? BlacksmithNPC;
         private ITranslationHelper i18n;
@@ -26,7 +26,7 @@ namespace RentedToolsRefresh
 
             Config = Helper.ReadConfig<ModConfig>();
 
-            helper.Events.GameLoop.SaveLoaded += Bootstrap;
+            helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
             Helper.Events.Display.MenuChanged += OnMenuChanged;
         }
 
@@ -62,10 +62,10 @@ namespace RentedToolsRefresh
             );
         }
 
-        private void Bootstrap(object? sender, EventArgs e)
+        private void InitOnSaveLoaded(object? sender, EventArgs e)
         {
             
-            Inited = false;
+            IsInited = false;
             BlacksmithNPC = null;
 
             BlacksmithCounterTiles = new List<Vector2>();
@@ -86,20 +86,20 @@ namespace RentedToolsRefresh
                 Monitor.Log("blacksmith NPC not found", LogLevel.Info);
             }
             
-            Inited = true;
+            IsInited = true;
         }
 
         private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
-            if (Config.modEnabled && Inited && IsPlayerAtCounter(Player))
+            if (Config.modEnabled && IsInited && AtBlacksmithCounter(Player))
             {
                 if (ShouldOfferRental(e))
                 {
-                    SetupRentToolsOfferDialog(Player);
+                    DisplayRentalOfferDialog(Player);
                 }
                 else if (ShouldReturnRental(e))
                 {
-                    SetupRentToolsRemovalDialog(Player);
+                    DisplayRentalRemovalDialog(Player);
                 }
             }
         }
@@ -159,7 +159,7 @@ namespace RentedToolsRefresh
             return null;
         }
 
-        private bool IsPlayerAtCounter(Farmer who)
+        private bool AtBlacksmithCounter(Farmer who)
         {
             return who.currentLocation.Name == "Blacksmith" && BlacksmithCounterTiles.Contains(who.Tile);
         }
@@ -194,7 +194,7 @@ namespace RentedToolsRefresh
             return result;
         }
 
-        private void SetupRentToolsRemovalDialog(Farmer who)
+        private void DisplayRentalRemovalDialog(Farmer who)
         {
             who.currentLocation.createQuestionDialogue(
                 i18n.Get("Blacksmith_RecycleTools_Menu"),
@@ -207,7 +207,7 @@ namespace RentedToolsRefresh
                     switch (whichAnswer)
                     {
                         case "Confirm":
-                            RecycleTempTools(whoInCallback);
+                            ReturnRentals(whoInCallback);
                             break;
                     }
                     return;
@@ -216,13 +216,13 @@ namespace RentedToolsRefresh
             );
         }
 
-        private void SetupRentToolsOfferDialog(Farmer who)
+        private void DisplayRentalOfferDialog(Farmer who)
         {
             who.currentLocation.createQuestionDialogue(
                 i18n.Get("Blacksmith_OfferTools_Menu",
                     new
                     {
-                        oldToolName = GetRentedToolByTool(GetToolBeingUpgraded(who))?.DisplayName,
+                        oldToolName = GetFreshTool(GetToolBeingUpgraded(who))?.DisplayName,
                         newToolName = GetToolBeingUpgraded(who)?.DisplayName
                     }),
                 new Response[2]
@@ -235,7 +235,7 @@ namespace RentedToolsRefresh
                         switch (whichAnswer)
                         {
                             case "Confirm":
-                                BuyTempTool(whoInCallback);
+                                RentTool(whoInCallback);
                                 break;
                             case "Leave":
                                 break;
@@ -246,12 +246,12 @@ namespace RentedToolsRefresh
             );
         }
 
-        private void SetupSucceededToRentDialog(Farmer who)
+        private void DisplaySuccessDialog(Farmer who)
         {
             i18n.Get("Blacksmith_HowToReturn");
         }
 
-        private void SetupFailedToRentDialog(Farmer who)
+        private void DisplayFailureDialog(Farmer who)
         {
             if (who.freeSpotsInInventory() <= 0)
             {
@@ -264,7 +264,7 @@ namespace RentedToolsRefresh
             }
         }
 
-        private Tool? GetRentedToolByTool(Item? tool)
+        private Tool? GetFreshTool(Item? tool)
         {
             if(tool == null)
             {
@@ -293,10 +293,10 @@ namespace RentedToolsRefresh
             }
         }
 
-        private void BuyTempTool(Farmer who)
+        private void RentTool(Farmer who)
         {
             Tool? toolBeingUpgraded = GetToolBeingUpgraded(who);
-            Item? toolToBuy = GetRentedToolByTool(toolBeingUpgraded);
+            Item? toolToBuy = GetFreshTool(toolBeingUpgraded);
             if (toolBeingUpgraded == null || toolToBuy == null)
             {
                 return;
@@ -307,25 +307,25 @@ namespace RentedToolsRefresh
                 actual.UpgradeLevel = toolBeingUpgraded.UpgradeLevel - 1;
             }
 
-            int toolCost = GetToolCost(toolToBuy);
+            int toolCost = GetToolRentalCost(toolToBuy);
 
             if(who.Money < toolCost)
             {
-                SetupFailedToRentDialog(Player);
+                DisplayFailureDialog(Player);
             }
             else if(who.freeSpotsInInventory() <= 0)
             {
-                SetupFailedToRentDialog(Player);
+                DisplayFailureDialog(Player);
             }
             else
             {   
                 ShopMenu.chargePlayer(who, 0, toolCost);
                 Item item = who.addItemToInventory(toolToBuy);
-                SetupSucceededToRentDialog(Player);
+                DisplaySuccessDialog(Player);
             }
         }
 
-        private void RecycleTempTools(Farmer who)
+        private void ReturnRentals(Farmer who)
         {
             // recycle all rented tools
             IList<Item> inventory = who.Items;
@@ -347,7 +347,7 @@ namespace RentedToolsRefresh
             }
         }
 
-        private int GetToolCost(Item tool)
+        private int GetToolRentalCost(Item tool)
         {
             return Config.toolRentalFee;
         }
