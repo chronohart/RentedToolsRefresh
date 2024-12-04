@@ -47,15 +47,15 @@ namespace RentedToolsRefresh
             // add some config options
             configMenu.AddBoolOption(
                 mod: ModManifest,
-                name: () => "Mod enabled",
-                tooltip: () => "Enable or disable the functioning of Rented Tools Refresh.",
+                name: () => i18n.Get("config.modEnabled.name"),
+                tooltip: () => i18n.Get("config.modEnabled.tooltip"),
                 getValue: () => Config.modEnabled,
                 setValue: value => Config.modEnabled = value
             );
             configMenu.AddNumberOption(
                 mod: ModManifest,
-                name: () => "Tool rental cost",
-                tooltip: () => "Flat cost to rent a tool.",
+                name: () => i18n.Get("config.rentalCost.name"),
+                tooltip: () => i18n.Get("config.rentalCost.tooltip"),
                 getValue: () => Config.toolRentalFee,
                 setValue: value => Config.toolRentalFee = value,
                 min: 0
@@ -137,7 +137,7 @@ namespace RentedToolsRefresh
                 && e.NewMenu == null)
             {
                 if(e.OldMenu != null
-                    && ((e.OldMenu is DialogueBox dialogueBox && dialogueBox.dialogues.FirstOrDefault() != i18n.Get("Blacksmith_RecycleTools_Menu"))
+                    && ((e.OldMenu is DialogueBox dialogueBox && dialogueBox.dialogues.FirstOrDefault() != i18n.Get("blacksmith.rentalReturn"))
                         || (e.OldMenu is ShopMenu shopMenu && shopMenu.ShopId == "Blacksmith")))
                 {
                     result = HasRentedTools(Player);
@@ -197,16 +197,16 @@ namespace RentedToolsRefresh
         private void DisplayRentalRemovalDialog(Farmer who)
         {
             who.currentLocation.createQuestionDialogue(
-                i18n.Get("Blacksmith_RecycleTools_Menu"),
+                i18n.Get("blacksmith.rentalReturn"),
                 new Response[1]
                 {
-                    new Response("Confirm", i18n.Get("Blacksmith_RecycleToolsMenu_Confirm")),
+                    new Response("ACCEPT", i18n.Get("player.rentalReturn.accept")),
                 },
                 (Farmer whoInCallback, string whichAnswer) =>
                 {
                     switch (whichAnswer)
                     {
-                        case "Confirm":
+                        case "ACCEPT":
                             ReturnRentals(whoInCallback);
                             break;
                     }
@@ -219,24 +219,24 @@ namespace RentedToolsRefresh
         private void DisplayRentalOfferDialog(Farmer who)
         {
             who.currentLocation.createQuestionDialogue(
-                i18n.Get("Blacksmith_OfferTools_Menu",
+                i18n.Get("blacksmith.rentalOffer",
                     new
                     {
                         toolName = GetFreshTool(GetToolBeingUpgraded(who))?.DisplayName
                     }),
                 new Response[2]
                     {
-                        new Response("Confirm", i18n.Get("Blacksmith_OfferToolsMenu_Confirm")),
-                        new Response("Leave", i18n.Get("Blacksmith_OfferToolsMenu_Leave")),
+                        new Response("ACCEPT", i18n.Get("player.rentalOffer.accept")),
+                        new Response("REJECT", i18n.Get("player.rentalOffer.reject")),
                     },
                 (Farmer whoInCallback, string whichAnswer) =>
                     {
                         switch (whichAnswer)
                         {
-                            case "Confirm":
+                            case "ACCEPT":
                                 RentTool(whoInCallback);
                                 break;
-                            case "Leave":
+                            case "REJECT":
                                 break;
                         }
                         return;
@@ -247,18 +247,18 @@ namespace RentedToolsRefresh
 
         private void DisplaySuccessDialog(Farmer who)
         {
-            i18n.Get("Blacksmith_HowToReturn");
+            i18n.Get("blacksmith.howToReturn");
         }
 
         private void DisplayFailureDialog(Farmer who)
         {
             if (who.freeSpotsInInventory() <= 0)
             {
-                Game1.drawObjectDialogue(i18n.Get("Blacksmith_NoInventorySpace"));
+                Game1.drawObjectDialogue(i18n.Get("notify.noInventorySpace"));
             }
             else
             {
-                Game1.drawObjectDialogue(i18n.Get("Blacksmith_InsufficientFundsToRentTool"));
+                Game1.drawObjectDialogue(i18n.Get("notify.insufficientFunds"));
                 //Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney1"));
             }
         }

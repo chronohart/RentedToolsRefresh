@@ -1,7 +1,7 @@
 {
-  "Blacksmith_NoInventorySpace": "持ち物の 空きが ありません。",
-  "Blacksmith_InsufficientFundsToRentTool": "お金が 足りません。",
-  "Blacksmith_OfferToolsMenu_Leave": "遠慮します",
-  "Blacksmith_RecycleToolsMenu_Leave": "あとにする",
-  "Blacksmith_RecycleToolsMenu_Confirm": "ええ、もちろん！"
+  "notify.noInventorySpace": "持ち物の 空きが ありません。",
+  "notify.insufficientFunds": "お金が 足りません。",
+  "player.rentalOffer.reject": "遠慮します",
+  "player.rentalReturn.reject": "あとにする",
+  "player.rentalReturn.accept": "ええ、もちろん！"
 }

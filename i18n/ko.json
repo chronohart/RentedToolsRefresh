@@ -1,7 +1,7 @@
 {
-  "Blacksmith_NoInventorySpace": "공간이 부족합니다.",
-  "Blacksmith_InsufficientFundsToRentTool": "소지한 돈이 부족합니다.",
-  "Blacksmith_OfferToolsMenu_Leave": "사양할게요",
-  "Blacksmith_RecycleToolsMenu_Leave": "나중에 구매합니다",
-  "Blacksmith_RecycleToolsMenu_Confirm": "네, 물론이죠!"
+  "notify.noInventorySpace": "공간이 부족합니다.",
+  "notify.insufficientFunds": "소지한 돈이 부족합니다.",
+  "player.rentalOffer.reject": "사양할게요",
+  "player.rentalReturn.reject": "나중에 구매합니다",
+  "player.rentalReturn.accept": "네, 물론이죠!"
 }

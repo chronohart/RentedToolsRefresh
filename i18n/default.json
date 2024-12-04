@@ -1,13 +1,18 @@
 ﻿{
-	"Blacksmith_NoInventorySpace": "You don't have enough room in your inventory.",
-	"Blacksmith_InsufficientFundsToRentTool": "You don't have enough money.",
-	"Blacksmith_OfferToolsMenu_Leave": "No thanks",
-	"Blacksmith_RecycleToolsMenu_Leave": "Not now",
-	"Blacksmith_RecycleToolsMenu_Confirm": "Yes, of course!",
+	"config.modEnabled.name": "Mod enabled",
+	"config.modEnabled.tooltip": "Enable or disable the functioning of Rented Tools Refresh.",
+	"config.rentalCost.name": "Tool rental cost",
+	"config.rentalCost.tooltip": "Flat cost to rent a tool.",
 
+	"blacksmith.rentalReturn": "Would you return that rental tool now?",
+	"blacksmith.rentalOffer": "You can borrow this old {{toolName}} while I'm upgrading yours.",
+	"blacksmith.howToReturn": "Just bring that rental tool back with you when you want to return it to me.",
 
-	"Blacksmith_OfferToolsMenu_Confirm": "Sure!",
-	"Blacksmith_RecycleTools_Menu": "Would you return that rental tool now?",
-	"Blacksmith_OfferTools_Menu": "You can borrow this old {{toolName}} while I'm upgrading yours.",
-	"Blacksmith_HowToReturn": "Just bring that rental tool back with you when you want to return it to me."
+	"player.rentalOffer.accept": "Sure!",
+	"player.rentalOffer.reject": "No thanks",
+	"player.rentalReturn.accept": "Yes, of course!",
+	"player.rentalReturn.reject": "Not now",
+
+	"notify.noInventorySpace": "You don't have enough room in your inventory.",
+	"notify.insufficientFunds": "You don't have enough money."
 }

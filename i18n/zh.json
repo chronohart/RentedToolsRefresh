@@ -1,7 +1,7 @@
 {
-  "Blacksmith_NoInventorySpace": "你的物品栏满了。",
-  "Blacksmith_InsufficientFundsToRentTool": "你身上的钱不够。",
-  "Blacksmith_OfferToolsMenu_Leave": "不用了，谢谢",
-  "Blacksmith_RecycleToolsMenu_Leave": "以后再说",
-  "Blacksmith_RecycleToolsMenu_Confirm": "当然可以啊！"
+  "notify.noInventorySpace": "你的物品栏满了。",
+  "notify.insufficientFunds": "你身上的钱不够。",
+  "player.rentalOffer.reject": "不用了，谢谢",
+  "player.rentalReturn.reject": "以后再说",
+  "player.rentalReturn.accept": "当然可以啊！"
 }
