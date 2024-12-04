@@ -1,0 +1,7 @@
+{
+  "Blacksmith_NoInventorySpace": "持ち物の 空きが ありません。",
+  "Blacksmith_InsufficientFundsToRentTool": "お金が 足りません。",
+  "Blacksmith_OfferToolsMenu_Leave": "遠慮します",
+  "Blacksmith_RecycleToolsMenu_Leave": "あとにする",
+  "Blacksmith_RecycleToolsMenu_Confirm": "ええ、もちろん！"
+}

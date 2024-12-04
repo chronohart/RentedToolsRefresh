@@ -222,8 +222,7 @@ namespace RentedToolsRefresh
                 i18n.Get("Blacksmith_OfferTools_Menu",
                     new
                     {
-                        oldToolName = GetFreshTool(GetToolBeingUpgraded(who))?.DisplayName,
-                        newToolName = GetToolBeingUpgraded(who)?.DisplayName
+                        toolName = GetFreshTool(GetToolBeingUpgraded(who))?.DisplayName
                     }),
                 new Response[2]
                     {
