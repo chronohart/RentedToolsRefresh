@@ -1,7 +1,21 @@
 {
-  "notify.noInventorySpace": "No tienes suficiente espacio en el inventario.",
-  "notify.insufficientFunds": "No tienes suficiente dinero.",
+	"config.modEnabled.name": "Mod habilitado",
+	"config.modEnabled.tooltip": "Activar o desactivar el funcionamiento de Rented Tools Refresh.",
+	"config.rentalCost.name": "Coste de alquiler de herramientas",
+	"config.rentalCost.tooltip": "Coste fijo por alquilar una herramienta.",
+
+	"blacksmith.rentalReturn": "¿Devolverías ahora esa herramienta de alquiler?",
+	"blacksmith.rentalOffer": "Puedes tomar prestada esta vieja {{toolName}} mientras actualizo la tuya.",
+	"blacksmith.howToReturn": "Sólo tienes que traer la herramienta de alquiler cuando quieras devolvérmela.",
+
+	"player.rentalOffer.accept": "¡Claro!",
+
+
+
   "player.rentalOffer.reject": "No, gracias.",
+  "player.rentalReturn.accept": "Sí, ¡desde luego!",
   "player.rentalReturn.reject": "Ahora no",
-  "player.rentalReturn.accept": "Sí, ¡desde luego!"
+
+  "notify.noInventorySpace": "No tienes suficiente espacio en el inventario.",
+  "notify.insufficientFunds": "No tienes suficiente dinero."
 }

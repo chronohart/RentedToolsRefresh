@@ -1,7 +1,21 @@
 {
-  "notify.noInventorySpace": "持ち物の 空きが ありません。",
-  "notify.insufficientFunds": "お金が 足りません。",
+	"config.modEnabled.name": "改造可能",
+	"config.modEnabled.tooltip": "レンタルツールのリフレッシュ機能を有効または無効にします。",
+	"config.rentalCost.name": "工具レンタル代",
+	"config.rentalCost.tooltip": "道具のレンタル料は一律。",
+
+	"blacksmith.rentalReturn": "そのレンタル用具を今すぐ返却しますか？",
+	"blacksmith.rentalOffer": "僕が君のものをアップグレードしている間、この古い{{toolName}}を貸してあげるよ。",
+	"blacksmith.howToReturn": "レンタルした道具を返却するときに持ってきてくれればいい。",
+
+	"player.rentalOffer.accept": "もちろんだ！",
+
+
+
   "player.rentalOffer.reject": "遠慮します",
+  "player.rentalReturn.accept": "ええ、もちろん！",
   "player.rentalReturn.reject": "あとにする",
-  "player.rentalReturn.accept": "ええ、もちろん！"
+
+  "notify.noInventorySpace": "持ち物の 空きが ありません。",
+  "notify.insufficientFunds": "お金が 足りません。"
 }

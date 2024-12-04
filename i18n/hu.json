@@ -1,7 +1,21 @@
 {
-  "notify.noInventorySpace": "Nincs elég hely a tárgymenüdben.",
-  "notify.insufficientFunds": "Nincs elég pénzed.",
+	"config.modEnabled.name": "Mod engedélyezve",
+	"config.modEnabled.tooltip": "A Bérelt eszközök frissítése működésének engedélyezése vagy letiltása.",
+	"config.rentalCost.name": "Szerszámbérlés költsége",
+	"config.rentalCost.tooltip": "A szerszámbérlés átalányköltsége.",
+
+	"blacksmith.rentalReturn": "Visszaadná most azt a kölcsönzött eszközt?",
+	"blacksmith.rentalOffer": "Kölcsönveheted ezt a régi {{toolName}}, amíg én frissítem a tiédet.",
+	"blacksmith.howToReturn": "Csak hozza vissza a kölcsönzött eszközt, amikor vissza akarja adni nekem.",
+
+	"player.rentalOffer.accept": "Hát persze!",
+
+
+
   "player.rentalOffer.reject": "Köszönöm, nem",
+  "player.rentalReturn.accept": "Igen, természetesen!",
   "player.rentalReturn.reject": "Még nem",
-  "player.rentalReturn.accept": "Igen, természetesen!"
+
+  "notify.noInventorySpace": "Nincs elég hely a tárgymenüdben.",
+  "notify.insufficientFunds": "Nincs elég pénzed."
 }

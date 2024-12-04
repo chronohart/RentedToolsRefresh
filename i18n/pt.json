@@ -1,7 +1,21 @@
 {
-  "notify.noInventorySpace": "Não há espaço o suficiente em seu inventário.",
-  "notify.insufficientFunds": "Você não tem dinheiro o suficiente.",
+	"config.modEnabled.name": "Mod habilitado",
+	"config.modEnabled.tooltip": "Ativar ou desativar o funcionamento da atualização de ferramentas alugadas.",
+	"config.rentalCost.name": "Custo de aluguel de ferramentas",
+	"config.rentalCost.tooltip": "Custo fixo para alugar uma ferramenta.",
+
+	"blacksmith.rentalReturn": "Você devolveria essa ferramenta de aluguel agora?",
+	"blacksmith.rentalOffer": "Você pode pegar emprestado essa {{toolName}} antiga enquanto eu atualizo a sua.",
+	"blacksmith.howToReturn": "Basta trazer a ferramenta alugada com você quando quiser devolvê-la.",
+
+	"player.rentalOffer.accept": "Com certeza!",
+
+
+
   "player.rentalOffer.reject": "Não, obrigado",
+  "player.rentalReturn.accept": "Sim, claro!",
   "player.rentalReturn.reject": "Agora não",
-  "player.rentalReturn.accept": "Sim, claro!"
+
+  "notify.noInventorySpace": "Não há espaço o suficiente em seu inventário.",
+  "notify.insufficientFunds": "Você não tem dinheiro o suficiente."
 }

@@ -1,7 +1,21 @@
 {
-  "notify.noInventorySpace": "Envanterde boş yer yok.",
-  "notify.insufficientFunds": "Yeterli miktarda paran bulunmuyor.",
+	"config.modEnabled.name": "Mod etkin",
+	"config.modEnabled.tooltip": "Kiralık Araçlar Yenileme'nin çalışmasını etkinleştirin veya devre dışı bırakın.",
+	"config.rentalCost.name": "Alet kiralama maliyeti",
+	"config.rentalCost.tooltip": "Bir araç kiralamak için sabit maliyet.",
+
+	"blacksmith.rentalReturn": "O kiralık aracı şimdi iade eder miydiniz?",
+	"blacksmith.rentalOffer": "Ben sizinkini yenilerken bu eski {{toolName}}'nı ödünç alabilirsiniz.",
+	"blacksmith.howToReturn": "Bana iade etmek istediğinizde kiralık aleti yanınızda getirmeniz yeterli.",
+
+	"player.rentalOffer.accept": "Tabii ya!",
+
+
+
   "player.rentalOffer.reject": "Teşekkürler",
+  "player.rentalReturn.accept": "Evet, tabii ki!",
   "player.rentalReturn.reject": "Şimdi Olmaz",
-  "player.rentalReturn.accept": "Evet, tabii ki!"
+
+  "notify.noInventorySpace": "Envanterde boş yer yok.",
+  "notify.insufficientFunds": "Yeterli miktarda paran bulunmuyor."
 }
