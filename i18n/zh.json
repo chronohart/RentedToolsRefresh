@@ -1,21 +1,18 @@
 {
-	"config.modEnabled.name": "已启用 Mod",
-	"config.modEnabled.tooltip": "启用或禁用租用工具刷新功能。",
+	"config.modEnabled.name": "启用",
+	"config.modEnabled.tooltip": "启用或禁用 Rented Tools Refresh 模组功能。",
 	"config.rentalCost.name": "工具租赁费用",
-	"config.rentalCost.tooltip": "租用工具的固定费用。",
+	"config.rentalCost.tooltip": "租赁工具的固定费用。",
 
-	"blacksmith.rentalOffer": "在我升级你的{{toolName}}时，你可以借用这个旧{{toolName}}。",
-	"blacksmith.howToReturn": "如果你想把租来的工具还给我，就把它带回来吧。",
-	"blacksmith.rentalReturn": "可以把我借你的工具还给我吗？",
-
-
-
+	"blacksmith.rentalReturn": "现在可以把借你的工具还给我吗？",
+	"blacksmith.rentalOffer": "在我升级你的{{toolName}}时，你可以借走这个旧的。",
+	"blacksmith.howToReturn": "如果你想把借走的工具还给我，就把它带来吧。",
 
 	"player.rentalOffer.accept": "好的",
-  "player.rentalOffer.reject": "不用了，谢谢",
-  "player.rentalReturn.accept": "当然可以啊！",
-  "player.rentalReturn.reject": "现在不行",
+	"player.rentalOffer.reject": "不用了，谢谢",
+	"player.rentalReturn.accept": "当然可以！",
+	"player.rentalReturn.reject": "现在不行",
 
-  "notify.noInventorySpace": "你的物品栏满了。",
-  "notify.insufficientFunds": "你身上的钱不够。"
+	"notify.noInventorySpace": "你的物品栏满了。",
+	"notify.insufficientFunds": "你没有足够的钱。"
 }
