@@ -37,20 +37,23 @@ toolRentalFee | numeric, **Default: 0** | Change this to change the cost to rent
 
 - Config options to control what level of tool can be rented
 - Add option for daily cost for rentals
-- Translations for all dialog and GMCM menu options
 
 <a name="translations"></a>![Translations](images/translations.png "Translations")
 
-This mod is planned to support translations for all in-game dialog as well as GMCM settings and descriptions. That being said, I only speak English, so translations provided by myself will likely be poor translations from Google Translate or similar. If you would like to submit a translation, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
+This mod includes translations for all in-game dialog as well as GMCM settings and descriptions, into any language supported by the base game. That being said, I only speak English, so translations provided by myself may be poor translations from DeepL or similar. If you would like to submit a translation from an actual person, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
 
 See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations) page for more information about how these translations work.
 
-## Incompatibilities
+<a name="incompatibilities"></a>![Incompatibilities](images/incompatibilities.png "Incompatibilities")
 
 This mod is incompatible with any mods that prevent the following standard dialogs from activating, while standing in front of Clint's shop counter:
 - "Thanks. I'll get started..." upon purchasing a tool upgrade
 - "Um, I'm still working..." upon selecting "Upgrade Tool" while a tool upgrade is already in process
 - "You received..." dialog when the player receives their upgraded tool
+
+<a name="contributors"></a>![Contributors](images/contributors.png "Contributors")
+
+@txyyh contributed some of the Simplified Chinese translation
 
 <a name="credits"></a>![Credits](images/credits.png "Credits")
 

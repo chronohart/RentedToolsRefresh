@@ -14,7 +14,7 @@ To edit these options:
 [*][b]Run the game[/b] using SMAPI. This will generate the mod's [b]config.json[/b] file in the `Stardew Valley\Mods\RentedToolsRefresh` folder.
 [*][b]Exit the game[/b] and open the [b]config.json[/b] file with any text editing program.
 [/list]
-This mod also supports [url=https://github.com/spacechase0]spacechase0's[/url] [url=https://spacechase0.com/mods/stardew-valley/generic-mod-config-menu/]Generic Mod Config Menu[/url] (GMCM). Players with that mod will be able to change config.json settings from Stardew Valley's main menu.
+This mod also supports [url=https://github.com/spacechase0]spacechase0's[/url] [url=https://spacechase0.com/mods/stardew-valley/generic-mod-config-menu/]Generic Mod Config Menu[/url] (GMCM). Players with that mod will be able to change config.json settings from within Stardew Valley.
 
 The available settings are:
 modEnabled     |  [b]true[/b], false                     |  Disable this to stop the mod from functioning.
@@ -24,12 +24,23 @@ toolRentalFee   |  numeric, [b](Default: 0)[/b]  |  Change this to change t
 [list]
 [*]Config options to control what level of tool can be rented
 [*]Add option for daily cost for rentals
-[*]Translations for all dialog and GMCM menu options
 [/list]
+
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/translations.png[/img]
-This mod is planned to support translations for all in-game dialog as well as GMCM settings and descriptions. That being said, I only speak English fluently, so translations provided by myself will likely be poor translations from Google Translate or similar. If you would like to submit a translation, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
+This mod includes translations for all in-game dialog as well as GMCM settings and descriptions, into any language supported by the base game. That being said, I only speak English, so translations provided by myself may be poor translations from DeepL or similar. If you would like to submit a translation from an actual person, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
 
 See the Stardew Valley Wiki's [url=https://stardewvalleywiki.com/Modding:Translations]Modding:Translations[/url] page for more information about how these translations work.
+
+[img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/4c755703eaad2bc96f5cbd674f29b2c332a861ef/docs/images/incompatibilities.png[/img]
+This mod is incompatible with any mods that prevent the following standard dialogs from activating, while standing in front of Clint's shop counter:
+[list]
+[*]"Thanks. I'll get started..." upon purchasing a tool upgrade
+[*]"Um, I'm still working..." upon selecting "Upgrade Tool" while a tool upgrade is already in process
+[*]"You received..." dialog when the player receives their upgraded tool
+[/list/]
+
+[img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/4c755703eaad2bc96f5cbd674f29b2c332a861ef/docs/images/contributors.png[/img]
+[url=https://github.com/txyyh]@txyyh[/url] contributed some of the Simplified Chinese translation
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/credits.png[/img]
 This mod is based on the excellent work of SolusCleansing and their RentedToolsImproved mod.
