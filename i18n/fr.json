@@ -1,0 +1,21 @@
+{
+	"config.modEnabled.name": "Mod activé",
+	"config.modEnabled.tooltip": "Activer ou désactiver le fonctionnement de l'actualisation des outils loués.",
+	"config.rentalCost.name": "Coût de location des outils",
+	"config.rentalCost.tooltip": "Coût forfaitaire pour la location d'un outil.",
+
+	"blacksmith.rentalReturn": "Retourneriez-vous cet outil de location maintenant ?",
+	"blacksmith.rentalOffer": "Vous pouvez emprunter ce vieil {{toolName}} pendant que j'améliore le vôtre.",
+	"blacksmith.howToReturn": "Vous n'avez qu'à rapporter l'outil de location avec vous lorsque vous voulez me le rendre.",
+
+	"player.rentalOffer.accept": "Bien sûr !",
+
+
+
+  "player.rentalOffer.reject": "Non merci",
+  "player.rentalReturn.accept": "Oui, bien sûr !",
+  "player.rentalReturn.reject": "Pas maintenant",
+
+  "notify.noInventorySpace": "Vous n’avez pas assez de place dans votre inventaire.",
+  "notify.insufficientFunds": "Vous n’avez pas assez d’argent."
+}

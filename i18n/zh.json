@@ -1,11 +1,21 @@
-﻿{
-	"Blacksmith_RecycleTools_Menu": "可以把我借你的工具还给我吗？",
-	"Blacksmith_RecycleToolsMenu_Confirm": "当然",
-	"Blacksmith_RecycleToolsMenu_Leave": "现在不行",
-	"Blacksmith_OfferTools_Menu": "在升级你{{newToolName}}的这段时间里，你可以先拿着我的老{{oldToolName}}用。",
-	"Blacksmith_OfferToolsMenu_Confirm": "好的",
-	"Blacksmith_OfferToolsMenu_Leave": "谢谢，不用了",
-	"Blacksmith_HowToReturn": "如果你想归还借走的工具，把它带在你身上就行。",
-	"Blacksmith_NoInventorySpace": "你的物品栏满了。",
-	"Blacksmith_InsufficientFundsToRentTool": "你没有足够的钱。"
+{
+	"config.modEnabled.name": "已启用 Mod",
+	"config.modEnabled.tooltip": "启用或禁用租用工具刷新功能。",
+	"config.rentalCost.name": "工具租赁费用",
+	"config.rentalCost.tooltip": "租用工具的固定费用。",
+
+	"blacksmith.rentalOffer": "在我升级你的{{toolName}}时，你可以借用这个旧{{toolName}}。",
+	"blacksmith.howToReturn": "如果你想把租来的工具还给我，就把它带回来吧。",
+	"blacksmith.rentalReturn": "可以把我借你的工具还给我吗？",
+
+
+
+
+	"player.rentalOffer.accept": "好的",
+  "player.rentalOffer.reject": "不用了，谢谢",
+  "player.rentalReturn.accept": "当然可以啊！",
+  "player.rentalReturn.reject": "现在不行",
+
+  "notify.noInventorySpace": "你的物品栏满了。",
+  "notify.insufficientFunds": "你身上的钱不够。"
 }

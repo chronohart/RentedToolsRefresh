@@ -1,0 +1,21 @@
+{
+	"config.modEnabled.name": "Mod aktiviert",
+	"config.modEnabled.tooltip": "Aktivieren oder deaktivieren Sie die Funktion von Rented Tools Refresh.",
+	"config.rentalCost.name": "Kosten für Werkzeugmiete",
+	"config.rentalCost.tooltip": "Pauschale Kosten für die Miete eines Werkzeugs.",
+
+	"blacksmith.rentalReturn": "Würden Sie das Leihgerät jetzt zurückgeben?",
+	"blacksmith.rentalOffer": "Sie können sich dieses alte {{toolName}} ausleihen, während ich Ihres aufrüste.",
+	"blacksmith.howToReturn": "Bringen Sie das Leihgerät einfach wieder mit, wenn Sie es mir zurückgeben wollen.",
+
+	"player.rentalOffer.accept": "Klar!",
+
+
+
+  "player.rentalOffer.reject": "Nein, danke",
+  "player.rentalReturn.accept": "Ja, natürlich!",
+  "player.rentalReturn.reject": "Nicht jetzt...",
+
+  "notify.noInventorySpace": "Du hast nicht genug Platz in deinem Inventar.",
+  "notify.insufficientFunds": "Du hast nicht genug Geld."
+}
