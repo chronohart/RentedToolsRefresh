@@ -53,7 +53,7 @@ This mod is incompatible with any mods that prevent the following standard dialo
 
 <a name="contributors"></a>![Contributors](images/contributors.png "Contributors")
 
-@txyyh contributed some of the Simplified Chinese translation
+[@txyyh](https://github.com/txyyh) contributed some of the Simplified Chinese translation
 
 <a name="credits"></a>![Credits](images/credits.png "Credits")
 
