@@ -154,7 +154,8 @@ namespace RentedToolsRefresh
         {
             if (who.toolBeingUpgraded.Value != null)
             {
-                if (who.toolBeingUpgraded.Value is Axe || who.toolBeingUpgraded.Value is Pickaxe || who.toolBeingUpgraded.Value is Hoe || who.toolBeingUpgraded.Value is WateringCan)
+                if (who.toolBeingUpgraded.Value is Axe || who.toolBeingUpgraded.Value is Pickaxe || who.toolBeingUpgraded.Value is Hoe 
+                    || who.toolBeingUpgraded.Value is WateringCan || who.toolBeingUpgraded.Value is Pan)
                 {
                     return who.toolBeingUpgraded.Value;
                 }
@@ -174,7 +175,7 @@ namespace RentedToolsRefresh
 
             IList<Item> inventory = who.Items;
             List<Tool> tools = inventory
-                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe)
+                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe || tool is Pan)
                 .OfType<Tool>()
                 .ToList();
 
@@ -288,6 +289,10 @@ namespace RentedToolsRefresh
             {
                 return new Hoe();
             }
+            else if (tool is Pan)
+            {
+                return new Pan();
+            }
             else
             {
                 Monitor.Log($"unsupported upgradable tool: {tool?.ToString()}");
@@ -332,7 +337,7 @@ namespace RentedToolsRefresh
             // recycle all rented tools
             IList<Item> inventory = who.Items;
             List<Tool> tools = inventory
-                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe)
+                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe || tool is Pan)
                 .OfType<Tool>()
                 .ToList();
 
