@@ -110,16 +110,19 @@ namespace RentedToolsRefresh
 
             if(Game1.activeClickableMenu == null)
             {
-                if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
+                if(GetToolBeingUpgraded(Player) != null)
                 {
-                    if(dialogueBox.characterDialogue != null)
+                    if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
                     {
-                        // first, ensure the offer is only ever made after one of two very specific lines of dialogue
-                        if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
-                            || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
+                        if(dialogueBox.characterDialogue != null)
                         {
-                            // next, ensure player doesn't already have a rented tool
-                            result = HasRentedTools(Player) == false;
+                            // first, ensure the offer is only ever made after one of two very specific lines of dialogue
+                            if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
+                                || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
+                            {
+                                // next, ensure player doesn't already have a rented tool
+                                result = HasRentedTools(Player) == false;
+                            }
                         }
                     }
                 }
