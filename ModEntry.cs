@@ -25,6 +25,8 @@ namespace RentedToolsRefresh
             Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
             Config = Helper.ReadConfig<ModConfig>();
+            Config.UpdateConfigToV110();
+            helper.WriteConfig(Config);
 
             helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
             Helper.Events.Display.MenuChanged += OnMenuChanged;
@@ -37,27 +39,60 @@ namespace RentedToolsRefresh
             if (configMenu is null)
                 return;
 
-            // register mod
+            // register mod with GMCM
             configMenu.Register(
                 mod: ModManifest,
                 reset: () => Config = new ModConfig(),
                 save: () => Helper.WriteConfig(Config)
             );
 
-            // add some config options
+            // add "Mod Enabled" option
             configMenu.AddBoolOption(
                 mod: ModManifest,
                 name: () => i18n.Get("config.modEnabled.name"),
                 tooltip: () => i18n.Get("config.modEnabled.tooltip"),
-                getValue: () => Config.modEnabled,
+                getValue: () => Config.ModEnabled,
                 setValue: value => Config.modEnabled = value
             );
+
+            //**************************
+            //*  Rental Options section
+            //**************************
+            configMenu.AddSectionTitle(
+                mod: ModManifest,
+                text: () => "Rental Options",
+                tooltip: () => "If both options are enabled, the player must choose which level to rent during gameplay."
+            );
+            // options
+            configMenu.AddBoolOption(
+                mod: ModManifest,
+                name: () => "Basic level tools",
+                getValue: () => Config.AllowRentBasicLevelTool,
+                setValue: value => Config.AllowRentBasicLevelTool = value
+            );
+            configMenu.AddBoolOption(
+                mod: ModManifest,
+                name: () => "Current level tools",
+                tooltip: () => "\"Current\" level is what you're upgrading from.",
+                getValue: () => Config.AllowRentCurrentLevelTool,
+                setValue: value => Config.AllowRentCurrentLevelTool = value
+            );
+
+            //******************************
+            //*  Rental Fee Options section
+            //******************************
+            configMenu.AddSectionTitle(
+                mod: ModManifest,
+                text: () => "Rental Fee Options"
+            );
+            // options
+
             configMenu.AddNumberOption(
                 mod: ModManifest,
                 name: () => i18n.Get("config.rentalCost.name"),
                 tooltip: () => i18n.Get("config.rentalCost.tooltip"),
-                getValue: () => Config.toolRentalFee,
-                setValue: value => Config.toolRentalFee = value,
+                getValue: () => Config.RentalFee,
+                setValue: value => Config.RentalFee = value,
                 min: 0
             );
         }
@@ -91,7 +126,7 @@ namespace RentedToolsRefresh
 
         private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
-            if (Config.modEnabled && IsInited && AtBlacksmithCounter(Player))
+            if (Config.ModEnabled && IsInited && AtBlacksmithCounter(Player))
             {
                 if (ShouldOfferRental(e))
                 {
@@ -221,23 +256,33 @@ namespace RentedToolsRefresh
 
         private void DisplayRentalOfferDialog(Farmer who)
         {
+            List<Response> responses = new List<Response>();
+            if(Config.AllowRentBasicLevelTool)
+            {
+                Response responseToAdd = new Response("BASIC", "Basic Level");
+                responses.Add(responseToAdd);
+            }
+            if(Config.AllowRentCurrentLevelTool)
+            {
+                Response responseToAdd = new Response("CURRENT", "Current Level");
+                responses.Add(responseToAdd);
+            }
+            responses.Add(new Response("REJECT", i18n.Get("player.rentalOffer.reject")));
+
             who.currentLocation.createQuestionDialogue(
                 i18n.Get("blacksmith.rentalOffer",
                     new
                     {
                         toolName = GetFreshTool(GetToolBeingUpgraded(who))?.DisplayName
                     }),
-                new Response[2]
+                responses.ToArray(),
+                (Farmer whoInCallback, string answer) =>
                     {
-                        new Response("ACCEPT", i18n.Get("player.rentalOffer.accept")),
-                        new Response("REJECT", i18n.Get("player.rentalOffer.reject")),
-                    },
-                (Farmer whoInCallback, string whichAnswer) =>
-                    {
-                        switch (whichAnswer)
+                        switch (answer)
                         {
-                            case "ACCEPT":
-                                RentTool(whoInCallback);
+                            case "BASIC":
+                            case "CURRENT":
+                                RentTool(whoInCallback, answer);
                                 break;
                             case "REJECT":
                                 break;
@@ -262,7 +307,6 @@ namespace RentedToolsRefresh
             else
             {
                 Game1.drawObjectDialogue(i18n.Get("notify.insufficientFunds"));
-                //Game1.drawObjectDialogue(Game1.content.LoadString("Strings\\UI:NotEnoughMoney1"));
             }
         }
 
@@ -295,21 +339,28 @@ namespace RentedToolsRefresh
             }
         }
 
-        private void RentTool(Farmer who)
+        private void RentTool(Farmer who, string toolLevel)
         {
             Tool? toolBeingUpgraded = GetToolBeingUpgraded(who);
-            Item? toolToBuy = GetFreshTool(toolBeingUpgraded);
-            if (toolBeingUpgraded == null || toolToBuy == null)
+            Tool? toolToRent = GetFreshTool(toolBeingUpgraded);
+            if (toolBeingUpgraded == null || toolToRent == null)
             {
                 return;
             }
-            else if (toolToBuy is Tool actual)
+            else
             {
-                //Sets rental tool quality to the quality of the current tool
-                actual.UpgradeLevel = toolBeingUpgraded.UpgradeLevel - 1;
+                switch(toolLevel)
+                {
+                    case "BASIC":
+                        toolToRent.UpgradeLevel = 0;
+                        break;
+                    case "CURRENT":
+                        toolToRent.UpgradeLevel = toolBeingUpgraded.UpgradeLevel - 1 <= 0 ? 0 : toolBeingUpgraded.UpgradeLevel - 1;
+                        break;
+                }
             }
 
-            int toolCost = GetToolRentalCost(toolToBuy);
+            int toolCost = GetToolRentalCost();
 
             if(who.Money < toolCost)
             {
@@ -322,7 +373,7 @@ namespace RentedToolsRefresh
             else
             {   
                 ShopMenu.chargePlayer(who, 0, toolCost);
-                Item item = who.addItemToInventory(toolToBuy);
+                Item item = who.addItemToInventory(toolToRent);
                 DisplaySuccessDialog(Player);
             }
         }
@@ -349,9 +400,9 @@ namespace RentedToolsRefresh
             }
         }
 
-        private int GetToolRentalCost(Item tool)
+        private int GetToolRentalCost()
         {
-            return Config.toolRentalFee;
+            return Config.RentalFee;
         }
     }
 }
