@@ -30,12 +30,14 @@ The available settings are:
 
 Name | Valid settings | Description
 -----|----------------|------------
-modEnabled | **true**, false | Disable this to stop the mod from functioning.
-toolRentalFee | numeric, **Default: 0** | Change this to change the cost to rent a tool.
+ModEnabled | **true**, false | Disable this to stop the mod from functioning.
+AllowRentBasicLevelTool | true, **false** | Enable this to make Clint offer basic level tools for rent.
+AllowRentCurrentLevelTool | **true**, false | Disable this to stop Clint from offering current level tools for rent.
+RentalFee | numeric, **Default: 0** | Change this to change the cost to rent a tool.
+ApplyFeeToBasicLevel | **true**, false | Disable this to make **RentalFee** not apply to basic level tool rental.
 
 <a name="planned-features"></a>![Planned Features](images/planned-features.png "Planned Features")
 
-- Config options to control what level of tool can be rented
 - Add option for daily cost for rentals
 
 <a name="translations"></a>![Translations](images/translations.png "Translations")
