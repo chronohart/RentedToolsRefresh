@@ -56,7 +56,7 @@ This mod is incompatible with any mods that prevent the following standard dialo
 [*]"Thanks. I'll get started..." upon purchasing a tool upgrade
 [*]"Um, I'm still working..." upon selecting "Upgrade Tool" while a tool upgrade is already in process
 [*]"You received..." dialog when the player receives their upgraded tool
-[/list/]
+[/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/4c755703eaad2bc96f5cbd674f29b2c332a861ef/docs/images/contributors.png[/img]
 [url=https://github.com/txyyh]@txyyh[/url] contributed some of the Simplified Chinese translation
