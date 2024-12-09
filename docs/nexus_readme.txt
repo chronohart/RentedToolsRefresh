@@ -22,14 +22,14 @@ To edit these options:
 This mod also supports [url=https://github.com/spacechase0]spacechase0[/url]'s [url=https://spacechase0.com/mods/stardew-valley/generic-mod-config-menu/]Generic Mod Config Menu[/url] (GMCM). Players with that mod will be able to change config.json settings from within Stardew Valley.
 
 The available settings are:
-
-Name                      | Valid settings             | Description
---------------------------|----------------------------|------------
-ModEnabled                | [b]true[/b], false         | Disable this to stop the mod from functioning.
-AllowRentBasicLevelTool   | true, [b]false[/b]         | Enable this to make Clint offer basic level tools for rent.
-AllowRentCurrentLevelTool | [b]true[/b], false         | Disable this to stop Clint from offering current level tools for rent.
-RentalFee                 | numeric, [b]Default: 0[/b] | Change this to change the cost to rent a tool.
-ApplyFeeToBasicLevel      | [b]true[/b], false         | Disable this to make [b]RentalFee[/b] not apply to basic level tool rental.
+Name - Valid settings (default in [b]bold[/b]) - Description
+[list=1]
+[*][b]ModEnabled[/b] - [b]true[/b], false - Disable this to stop the mod from functioning.
+[*][b]AllowRentBasicLevelTool[/b] - true, [b]false[/b] - Enable this to make Clint offer basic level tools for rent.
+[*][b]AllowRentCurrentLevelTool[/b] - [b]true[/b], false - Disable this to stop Clint from offering current level tools for rent.
+[*][b]RentalFee[/b] - numeric, [b](Default: 0)[/b] - Change this to change the cost to rent a tool.
+[*][b]ApplyFeeToBasicLevel[/b] - [b]true[/b], false - Disable this to make [b]RentalFee[/b] not apply to basic level tool rental.
+[/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/planned-features.png[/img]
 
