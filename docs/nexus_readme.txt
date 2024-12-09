@@ -24,11 +24,11 @@ This mod also supports [url=https://github.com/spacechase0]spacechase0[/url]'s [
 The available settings are:
 Name - Valid settings (default in [b]bold[/b]) - Description
 [list=1]
-[*][b]ModEnabled[/b] - [b]true[/b], false - Disable this to stop the mod from functioning.
-[*][b]AllowRentBasicLevelTool[/b] - true, [b]false[/b] - Enable this to make Clint offer basic level tools for rent.
-[*][b]AllowRentCurrentLevelTool[/b] - [b]true[/b], false - Disable this to stop Clint from offering current level tools for rent.
-[*][b]RentalFee[/b] - numeric, [b](Default: 0)[/b] - Change this to change the cost to rent a tool.
-[*][b]ApplyFeeToBasicLevel[/b] - [b]true[/b], false - Disable this to make [b]RentalFee[/b] not apply to basic level tool rental.
+[*] [b]ModEnabled[/b] - [b]true[/b], false - Disable this to stop the mod from functioning.
+[*] [b]AllowRentBasicLevelTool[/b] - true, [b]false[/b] - Enable this to make Clint offer basic level tools for rent.
+[*] [b]AllowRentCurrentLevelTool[/b] - [b]true[/b], false - Disable this to stop Clint from offering current level tools for rent.
+[*] [b]RentalFee[/b] - numeric, [b](Default: 0)[/b] - Change this to change the cost to rent a tool.
+[*] [b]ApplyFeeToBasicLevel[/b] - [b]true[/b], false - Disable this to make [b]RentalFee[/b] not apply to basic level tool rental.
 [/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/planned-features.png[/img]
@@ -42,6 +42,22 @@ Name - Valid settings (default in [b]bold[/b]) - Description
 This mod includes translations for all in-game dialog as well as GMCM settings and descriptions, into any language supported by the base game. That being said, I only speak English, so translations provided by myself may be poor translations from DeepL or similar. If you would like to submit a translation from an actual person, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
 
 See the Stardew Valley Wiki's [url=https://stardewvalleywiki.com/Modding:Translations]Modding:Translations[/url] page for more information about how these translations work.
+
+Translation status:
+[list]
+[*] [b]default[/b] - fully translated
+[*] [b]Chinese[/b] - partially translated
+[*] [b]French[/b] - translated with DeepL
+[*] [b]German[/b] - translated with DeepL
+[*] [b]Hungarian[/b] - translated with DeepL
+[*] [b]Italian[/b] - translated with DeepL
+[*] [b]Japanese[/b] - translated with DeepL
+[*] [b]Korean[/b] - translated with DeepL
+[*] [b]Portuguese[/b] - translated with DeepL
+[*] [b]Russian[/b] - translated with DeepL
+[*] [b]Spanish[/b] - translated with DeepL
+[*] [b]Turkish[/b] - translated with DeepL
+[/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/a914793fd8742263a29e2b58f224b54135aa56a2/docs/images/incompatibilities.png[/img]
 

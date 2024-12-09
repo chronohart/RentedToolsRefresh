@@ -46,6 +46,21 @@ This mod includes translations for all in-game dialog as well as GMCM settings a
 
 See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations) page for more information about how these translations work.
 
+Translation | Status
+------------|------------------
+default     | [fully translated](/i18n/default.json)
+Chinese     | [partially translated](/i18n/zh.json)
+French      | [translated with DeepL](/i18n/fr.json)
+German      | [translated with DeepL](/i18n/de.json)
+Hungarian   | [translated with DeepL](/i18n/hu.json)
+Italian     | [translated with DeepL](/i18n/it.json)
+Japanese    | [translated with DeepL](/i18n/ja.json)
+Korean      | [translated with DeepL](/i18n/ko.json)
+Portuguese  | [translated with DeepL](/i18n/pt.json)
+Russian     | [translated with DeepL](/i18n/ru.json)
+Spanish     | [translated with DeepL](/i18n/es.json)
+Turkish     | [translated with DeepL](/i18n/tr.json)
+
 <a name="incompatibilities"></a>![Incompatibilities](images/incompatibilities.png "Incompatibilities")
 
 This mod is incompatible with any mods that prevent the following standard dialogs from activating, while standing in front of Clint's shop counter:
