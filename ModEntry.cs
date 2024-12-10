@@ -273,32 +273,43 @@ namespace RentedToolsRefresh
             if(currentTool == null)
                 return;
 
-            Tool basicTool = GetFreshTool(GetToolBeingUpgraded(who)) ?? currentTool;
+            Tool basicTool = GetFreshTool(currentTool) ?? currentTool;
+
+            int basicCost = GetToolRentalCost("BASIC");
+            int currentCost = GetToolRentalCost("CURRENT");
+
+            bool offerBasic = Config.AllowRentBasicLevelTool;
+            bool offerCurrent = Config.AllowRentCurrentLevelTool;
+
+            if(currentTool.UpgradeLevel == basicTool.UpgradeLevel)
+                offerCurrent = false;
 
             // setup blacksmith dialog based on current config
             string blacksmithDialog = i18n.Get("blacksmith.rentalOffer.base", 
-                new { toolNameWithArticle = Lexicon.prependArticle(GetFreshTool(GetToolBeingUpgraded(who))?.DisplayName)});
+                new { toolNameWithArticle = Lexicon.prependArticle(basicTool.DisplayName)});
 
-            if(Config.RentalFee == 0 || (Config.AllowRentBasicLevelTool && Config.AllowRentCurrentLevelTool == false && Config.ApplyFeeToBasicLevel == false))
+            if((offerBasic == false || basicCost == 0)
+                && (offerCurrent == false || currentCost == 0))
                 blacksmithDialog += i18n.Get("blacksmith.rentalOffer.noFee");
-            else if(Config.ApplyFeeToBasicLevel || (Config.AllowRentBasicLevelTool == false))
-                blacksmithDialog += i18n.Get("blacksmith.rentalOffer.sameFeeAllOptions", new { currency = Config.RentalFee});
+            else if(offerBasic != offerCurrent
+                || basicCost == currentCost)
+                blacksmithDialog += i18n.Get("blacksmith.rentalOffer.sameFeeAllOptions", new { currency = currentCost});
             else
                 blacksmithDialog += i18n.Get("blacksmith.rentalOffer.feeForCurrentLevelOnly",
                 new
                 {
                     basicToolName = basicTool.DisplayName,
                     currentToolName = currentTool.DisplayName,
-                    currency = Config.RentalFee
+                    currency = currentCost
                 });
 
             List<Response> responses = new List<Response>();
-            if(Config.AllowRentBasicLevelTool)
+            if(offerBasic)
             {
                 Response responseToAdd = new Response("BASIC", i18n.Get("player.rentalOffer.basic"));
                 responses.Add(responseToAdd);
             }
-            if(Config.AllowRentCurrentLevelTool)
+            if(offerCurrent)
             {
                 Response responseToAdd = new Response("CURRENT", i18n.Get("player.rentalOffer.current"));
                 responses.Add(responseToAdd);
@@ -382,9 +393,7 @@ namespace RentedToolsRefresh
                 }
             }
 
-            int toolCost = GetToolRentalCost();
-            if(Config.ApplyFeeToBasicLevel == false && toolLevel == "BASIC")
-                toolCost = 0;
+            int toolCost = GetToolRentalCost(toolLevel);
 
             if(who.Money < toolCost)
             {
@@ -424,9 +433,14 @@ namespace RentedToolsRefresh
             }
         }
 
-        private int GetToolRentalCost()
+        private int GetToolRentalCost(string toolLevel)
         {
-            return Config.RentalFee;
+            int result = Config.RentalFee;
+            
+            if(Config.ApplyFeeToBasicLevel == false && toolLevel == "BASIC")
+                result = 0;
+
+            return result;
         }
     }
 }
