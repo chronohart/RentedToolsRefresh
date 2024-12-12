@@ -36,7 +36,7 @@ AllowRentCurrentLevelTool | **true**, false | Disable this to stop Clint from of
 RentalFee | numeric, **Default: 0** | Change this to change the cost to rent a tool.*
 ApplyFeeToBasicLevel | **true**, false | Disable this to make **RentalFee** not apply to basic level tool rental.
 
-*Note: If the player's current tool being upgraded is the basic level of the tool, the rental offered will be considered basic when determining the cost to rent.
+*Note: If both "AllowRent" options are true and the player's current tool being upgraded is the basic level of the tool, the rental offered will be considered basic when determining the cost to rent.
 
 <a name="planned-features"></a>![Planned Features](images/planned-features.png "Planned Features")
 

@@ -31,7 +31,7 @@ Name - Valid settings (default in [b]bold[/b]) - Description
 [*] [b]ApplyFeeToBasicLevel[/b] - [b]true[/b], false - Disable this to make [b]RentalFee[/b] not apply to basic level tool rental.
 [/list]
 
-*Note: If the player's current tool being upgraded is the basic level of the tool, the rental offered will be considered basic when determining the cost to rent.
+*Note: If both "AllowRent" options are true and the player's current tool being upgraded is the basic level of the tool, the rental offered will be considered basic when determining the cost to rent.
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/planned-features.png[/img]
 

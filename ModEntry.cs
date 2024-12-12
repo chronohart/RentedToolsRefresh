@@ -280,13 +280,9 @@ namespace RentedToolsRefresh
             Tool? currentTool = GetFreshTool(basicTool);
             if(currentTool == null)
                 return;
-
-            Monitor.Log("***** Starting loop");
-            while(currentTool.UpgradeLevel <= toolBeingUpgradedTo.UpgradeLevel - 1)
-            {
-                currentTool.UpgradeFrom(currentTool);
-            }
-            Monitor.Log($"**** Ended loop. Basic Tool == {basicTool.DisplayName} | Current Tool == {currentTool.DisplayName} | Upgraded Tool == {toolBeingUpgradedTo.DisplayName}");
+            if(toolBeingUpgradedTo.UpgradeLevel > 0)
+                currentTool.UpgradeLevel = toolBeingUpgradedTo.UpgradeLevel - 1;
+            currentTool = (Tool)currentTool.getOne();
 
             int basicCost = GetToolRentalCost("BASIC");
             int currentCost = GetToolRentalCost("CURRENT");
@@ -294,7 +290,7 @@ namespace RentedToolsRefresh
             bool offerBasic = Config.AllowRentBasicLevelTool;
             bool offerCurrent = Config.AllowRentCurrentLevelTool;
 
-            if(currentTool.UpgradeLevel == basicTool.UpgradeLevel)
+            if(currentTool.UpgradeLevel == basicTool.UpgradeLevel && offerBasic && offerCurrent)
                 offerCurrent = false;
 
             // setup blacksmith dialog based on current config
