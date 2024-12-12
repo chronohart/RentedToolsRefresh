@@ -49,16 +49,16 @@ Translation status:
 [list]
 [*] [b]default[/b] - fully translated
 [*] [b]Chinese[/b] - partially translated
-[*] [b]French[/b] - translated with DeepL
+[*] [b]French[/b] - partially translated with DeepL
 [*] [b]German[/b] - translated with DeepL
-[*] [b]Hungarian[/b] - translated with DeepL
-[*] [b]Italian[/b] - translated with DeepL
-[*] [b]Japanese[/b] - translated with DeepL
-[*] [b]Korean[/b] - translated with DeepL
-[*] [b]Portuguese[/b] - translated with DeepL
-[*] [b]Russian[/b] - translated with DeepL
+[*] [b]Hungarian[/b] - partially translated with DeepL
+[*] [b]Italian[/b] - partially translated with DeepL
+[*] [b]Japanese[/b] - partially translated with DeepL
+[*] [b]Korean[/b] - partially translated with DeepL
+[*] [b]Portuguese[/b] - partially translated with DeepL
+[*] [b]Russian[/b] - partially translated with DeepL
 [*] [b]Spanish[/b] - translated with DeepL
-[*] [b]Turkish[/b] - translated with DeepL
+[*] [b]Turkish[/b] - partially translated with DeepL
 [/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/a914793fd8742263a29e2b58f224b54135aa56a2/docs/images/incompatibilities.png[/img]
