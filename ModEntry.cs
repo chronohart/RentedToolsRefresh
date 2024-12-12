@@ -269,11 +269,24 @@ namespace RentedToolsRefresh
 
         private void DisplayRentalOfferDialog(Farmer who)
         {
-            Tool? currentTool = GetToolBeingUpgraded(who);
+            Tool? toolBeingUpgradedTo = GetToolBeingUpgraded(who);
+            if(toolBeingUpgradedTo == null)
+                return;
+
+            Tool? basicTool = GetFreshTool(toolBeingUpgradedTo);
+            if(basicTool == null)
+                return;
+            
+            Tool? currentTool = GetFreshTool(basicTool);
             if(currentTool == null)
                 return;
 
-            Tool basicTool = GetFreshTool(currentTool) ?? currentTool;
+            Monitor.Log("***** Starting loop");
+            while(currentTool.UpgradeLevel <= toolBeingUpgradedTo.UpgradeLevel - 1)
+            {
+                currentTool.UpgradeFrom(currentTool);
+            }
+            Monitor.Log($"**** Ended loop. Basic Tool == {basicTool.DisplayName} | Current Tool == {currentTool.DisplayName} | Upgraded Tool == {toolBeingUpgradedTo.DisplayName}");
 
             int basicCost = GetToolRentalCost("BASIC");
             int currentCost = GetToolRentalCost("CURRENT");
