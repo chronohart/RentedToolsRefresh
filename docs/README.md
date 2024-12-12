@@ -52,9 +52,9 @@ Translation | Status
 ------------|------------------
 default     | [fully translated](/i18n/default.json)
 Chinese     | [partially translated](/i18n/zh.json)
-French      | [partially translated with DeepL](/i18n/fr.json)
+French      | [translated with DeepL](/i18n/fr.json)
 German      | [translated with DeepL](/i18n/de.json)
-Hungarian   | [partially translated with DeepL](/i18n/hu.json)
+Hungarian   | [translated with DeepL](/i18n/hu.json)
 Italian     | [partially translated with DeepL](/i18n/it.json)
 Japanese    | [partially translated with DeepL](/i18n/ja.json)
 Korean      | [partially translated with DeepL](/i18n/ko.json)

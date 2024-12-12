@@ -49,9 +49,9 @@ Translation status:
 [list]
 [*] [b]default[/b] - fully translated
 [*] [b]Chinese[/b] - partially translated
-[*] [b]French[/b] - partially translated with DeepL
+[*] [b]French[/b] - translated with DeepL
 [*] [b]German[/b] - translated with DeepL
-[*] [b]Hungarian[/b] - partially translated with DeepL
+[*] [b]Hungarian[/b] - translated with DeepL
 [*] [b]Italian[/b] - partially translated with DeepL
 [*] [b]Japanese[/b] - partially translated with DeepL
 [*] [b]Korean[/b] - partially translated with DeepL
