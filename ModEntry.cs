@@ -23,11 +23,11 @@ namespace RentedToolsRefresh
         {
             i18n = Helper.Translation;
 
-            Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
-
             Config = Helper.ReadConfig<ModConfig>();
             Config.ValidateConfigFile();
             helper.WriteConfig(Config);
+
+            Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
             helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
             Helper.Events.Display.MenuChanged += OnMenuChanged;
