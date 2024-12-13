@@ -2,7 +2,7 @@
 
 A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.
 
-[img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/features.png[/img]
+[img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/5c130db3607b7bfcc9ba06d847280b3b84cb14ee/docs/images/features.png[/img]
 
 [list]
 [*] Upon purchasing a tool upgrade*, Clint will offer to lend the player a replacement tool.
