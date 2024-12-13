@@ -18,8 +18,8 @@
 	"blacksmith.rentalReturn": "Würden Sie das Leihgerät jetzt zurückgeben?",
 	"blacksmith.rentalOffer.base": "Möchten Sie sich {{toolNameWithArticle}} ausleihen, während ich Ihren aufrüste?",
 	"blacksmith.rentalOffer.noFee": " Keine Kosten!",
-	"blacksmith.rentalOffer.sameFeeAllOptions": " Nur {{currency}}g!",
-	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " Das grundlegende {{basicToolName}} ist kostenlos und das {{currentToolName}} ist {{currency}}g.",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Nur {{currency}} G!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " Das grundlegende {{basicToolName}} ist kostenlos und das {{currentToolName}} ist {{currency}} G.",
 	"blacksmith.howToReturn": "Bringen Sie das Leihgerät einfach wieder mit, wenn Sie es mir zurückgeben wollen.",
 
 

@@ -18,8 +18,8 @@
 	"blacksmith.rentalReturn": "대여한 도구를 지금 반납하시겠습니까?",
 	"blacksmith.rentalOffer.base": "제가 {{toolNameWithArticle}}을 업그레이드하는 동안 빌려주시겠어요?",
 	"blacksmith.rentalOffer.noFee": " 무료!",
-	"blacksmith.rentalOffer.sameFeeAllOptions": " 오직 {{currency}}g!",
-	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " 기본 {{basicToolName}}은 무료이고 {{currentToolName}}은 {{currency}}g입니다.",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " 오직 {{currency}}골드!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " 기본 {{basicToolName}}은 무료이고 {{currentToolName}}은 {{currency}}골드입니다.",
 	"blacksmith.howToReturn": "대여한 도구를 반납할 때는 반납할 때 가져가세요.",
 
 

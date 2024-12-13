@@ -1,21 +1,36 @@
 {
 	"config.modEnabled.name": "Mod etkin",
 	"config.modEnabled.tooltip": "Kiralık Araçlar Yenileme'nin çalışmasını etkinleştirin veya devre dışı bırakın.",
+
+	"config.rentalSection.text": "Kiralama Seçenekleri",
+	"config.rentalSection.tooltip": "Her iki seçenek de etkinleştirilirse, oyuncu oyun sırasında hangi seviyeyi kiralayacağını seçmelidir.",
+	"config.allowRentBasicLevelTool.name": "Temel seviye araçlar",
+	"config.allowRentCurrentLevelTool.name": "Mevcut seviye araçları",
+	"config.allowRentCurrentLevelTool.tooltip": "“Mevcut” seviye, yükseltme yaptığınız seviyedir.",
+
+	"config.rentalFeeOptionsSection.text": "Kiralama Ücreti Seçenekleri",
 	"config.rentalCost.name": "Alet kiralama maliyeti",
 	"config.rentalCost.tooltip": "Bir araç kiralamak için sabit maliyet.",
+	"config.applyFeeToBasicLevel.name": "Temel seviyeye ücret uygulayın",
+	"config.applyFeeToBasicLevel.tooltip": "Devre dışı bırakıldığında, kiralama ücreti yalnızca “Mevcut seviye” araç kiralama için tahsil edilecektir.",
+
 
 	"blacksmith.rentalReturn": "O kiralık aracı şimdi iade eder miydiniz?",
-	"blacksmith.rentalOffer": "Ben sizinkini yenilerken bu eski {{toolName}}'nı ödünç alabilirsiniz.",
+	"blacksmith.rentalOffer.base": "Ben sizinkini yükseltirken {{toolNameWithArticle}}'yi ödünç almak ister misiniz?",
+	"blacksmith.rentalOffer.noFee": " Ücretsiz!",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Sadece {{currency}}g!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " Temel {{basicToolName}} ücretsizdir ve {{currentToolName}} {{currency}}g'dir.",
 	"blacksmith.howToReturn": "Bana iade etmek istediğinizde kiralık aleti yanınızda getirmeniz yeterli.",
 
+
+	"player.rentalOffer.basic": "Temel seviye",
+	"player.rentalOffer.current": "Mevcut seviye",
 	"player.rentalOffer.accept": "Tabii ya!",
+	"player.rentalOffer.reject": "Teşekkürler",
+	"player.rentalReturn.accept": "Evet, tabii ki!",
+	"player.rentalReturn.reject": "Şimdi Olmaz",
 
 
-
-  "player.rentalOffer.reject": "Teşekkürler",
-  "player.rentalReturn.accept": "Evet, tabii ki!",
-  "player.rentalReturn.reject": "Şimdi Olmaz",
-
-  "notify.noInventorySpace": "Envanterde boş yer yok.",
-  "notify.insufficientFunds": "Yeterli miktarda paran bulunmuyor."
+	"notify.noInventorySpace": "Envanterde boş yer yok.",
+	"notify.insufficientFunds": "Yeterli miktarda paran bulunmuyor."
 }

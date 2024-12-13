@@ -18,8 +18,8 @@
 	"blacksmith.rentalReturn": "¿Devolverías ahora esa herramienta de alquiler?",
 	"blacksmith.rentalOffer.base": "¿Quieres que te preste {{toolNameWithArticle}} mientras actualizo la tuya?",
 	"blacksmith.rentalOffer.noFee": " Gratis.",
-	"blacksmith.rentalOffer.sameFeeAllOptions": " Sólo {{currency}}g!",
-	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " El {{basicToolName}} básico es gratuito y el {{currentToolName}} es {{currency}}g.",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Sólo {{currency}}o!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " El {{basicToolName}} básico es gratuito y el {{currentToolName}} es {{currency}}o.",
 	"blacksmith.howToReturn": "Sólo tienes que traer la herramienta de alquiler cuando quieras devolvérmela.",
 
 
