@@ -3,12 +3,21 @@
 A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.
 
 ## Contents
+* [Features](#features)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Planned Features](#planned-features)
 * [Translations](#translations)
 * [Incompatibilities](#incompatibilities)
 * [Credits](#credits)
+
+<a name="features"></a>![Features](images/features.png "Features")
+
+- Upon purchasing a tool upgrade*, Clint will offer to lend the player a replacement tool.
+- The player may choose to rent the basic version of the tool or the version they are upgrading *from*. Configurable
+- The player will be charged a fee to rent. Configurable
+
+*Note: Only the axe, hoe, pickaxe, and watering can from the standard game are currently supported.
 
 <a name="installation"></a>![Installation](images/installation.png "Installation")
 
@@ -51,17 +60,17 @@ See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.c
 Translation | Status
 ------------|------------------
 default     | [fully translated](/i18n/default.json)
-Chinese     | [partially translated](/i18n/zh.json)
+Chinese     | [translated, partly with DeepL](/i18n/zh.json)
 French      | [translated with DeepL](/i18n/fr.json)
 German      | [translated with DeepL](/i18n/de.json)
 Hungarian   | [translated with DeepL](/i18n/hu.json)
-Italian     | [partially translated with DeepL](/i18n/it.json)
-Japanese    | [partially translated with DeepL](/i18n/ja.json)
-Korean      | [partially translated with DeepL](/i18n/ko.json)
-Portuguese  | [partially translated with DeepL](/i18n/pt.json)
-Russian     | [partially translated with DeepL](/i18n/ru.json)
+Italian     | [translated with DeepL](/i18n/it.json)
+Japanese    | [translated with DeepL](/i18n/ja.json)
+Korean      | [translated with DeepL](/i18n/ko.json)
+Portuguese  | [translated with DeepL](/i18n/pt.json)
+Russian     | [translated with DeepL](/i18n/ru.json)
 Spanish     | [translated with DeepL](/i18n/es.json)
-Turkish     | [partially translated with DeepL](/i18n/tr.json)
+Turkish     | [translated with DeepL](/i18n/tr.json)
 
 <a name="incompatibilities"></a>![Incompatibilities](images/incompatibilities.png "Incompatibilities")
 

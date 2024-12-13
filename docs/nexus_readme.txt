@@ -2,6 +2,16 @@
 
 A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.
 
+[img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/features.png[/img]
+
+[list]
+[*] Upon purchasing a tool upgrade*, Clint will offer to lend the player a replacement tool.
+[*] The player may choose to rent the basic version of the tool or the version they are upgrading [i]from[/i]. Configurable
+[*] The player will be charged a fee to rent. Configurable
+[/list]
+
+*Note: Only the axe, hoe, pickaxe, and watering can from the standard game are currently supported.
+
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/installation.png[/img]
 
 [list=1]
@@ -48,17 +58,17 @@ See the Stardew Valley Wiki's [url=https://stardewvalleywiki.com/Modding:Transla
 Translation status:
 [list]
 [*] [b]default[/b] - fully translated
-[*] [b]Chinese[/b] - partially translated
+[*] [b]Chinese[/b] - translated, partly with DeepL
 [*] [b]French[/b] - translated with DeepL
 [*] [b]German[/b] - translated with DeepL
 [*] [b]Hungarian[/b] - translated with DeepL
-[*] [b]Italian[/b] - partially translated with DeepL
-[*] [b]Japanese[/b] - partially translated with DeepL
-[*] [b]Korean[/b] - partially translated with DeepL
-[*] [b]Portuguese[/b] - partially translated with DeepL
-[*] [b]Russian[/b] - partially translated with DeepL
+[*] [b]Italian[/b] - translated with DeepL
+[*] [b]Japanese[/b] - translated with DeepL
+[*] [b]Korean[/b] - translated with DeepL
+[*] [b]Portuguese[/b] - translated with DeepL
+[*] [b]Russian[/b] - translated with DeepL
 [*] [b]Spanish[/b] - translated with DeepL
-[*] [b]Turkish[/b] - partially translated with DeepL
+[*] [b]Turkish[/b] - translated with DeepL
 [/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/a914793fd8742263a29e2b58f224b54135aa56a2/docs/images/incompatibilities.png[/img]
