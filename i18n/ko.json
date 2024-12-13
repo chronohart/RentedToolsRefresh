@@ -1,21 +1,36 @@
 {
 	"config.modEnabled.name": "모드 사용",
-	"config.modEnabled.tooltip": "대여한 도구 새로 고침 기능을 활성화 또는 비활성화합니다.",
+	"config.modEnabled.tooltip": "Rented Tools Refresh의 기능을 활성화 또는 비활성화합니다.",
+
+	"config.rentalSection.text": "대여 옵션",
+	"config.rentalSection.tooltip": "두 옵션이 모두 활성화된 경우, 플레이어는 게임 플레이 중에 대여할 레벨을 선택해야 합니다.",
+	"config.allowRentBasicLevelTool.name": "기본 레벨 도구",
+	"config.allowRentCurrentLevelTool.name": "현재 레벨 도구",
+	"config.allowRentCurrentLevelTool.tooltip": "“현재” 레벨은 업그레이드하는 레벨입니다.",
+
+	"config.rentalFeeOptionsSection.text": "대여료 옵션",
 	"config.rentalCost.name": "도구 대여 비용",
 	"config.rentalCost.tooltip": "도구 대여에 드는 고정 비용.",
+	"config.applyFeeToBasicLevel.name": "기본 레벨에 수수료 적용",
+	"config.applyFeeToBasicLevel.tooltip": "비활성화하면 '현재 레벨' 도구 대여에 대해서만 대여료가 부과됩니다.",
 
+	
 	"blacksmith.rentalReturn": "대여한 도구를 지금 반납하시겠습니까?",
-	"blacksmith.rentalOffer": "제가 업그레이드하는 동안 이 이전 {{toolName}}을 빌려도 됩니다.",
+	"blacksmith.rentalOffer.base": "제가 {{toolNameWithArticle}}을 업그레이드하는 동안 빌려주시겠어요?",
+	"blacksmith.rentalOffer.noFee": " 무료!",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " 오직 {{currency}}g!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " 기본 {{basicToolName}}은 무료이고 {{currentToolName}}은 {{currency}}g입니다.",
 	"blacksmith.howToReturn": "대여한 도구를 반납할 때는 반납할 때 가져가세요.",
 
+
+	"player.rentalOffer.basic": "기본 레벨",
+	"player.rentalOffer.current": "현재 레벨",
 	"player.rentalOffer.accept": "물론이죠!",
+	"player.rentalOffer.reject": "사양할게요",
+	"player.rentalReturn.accept": "네, 물론이죠!",
+	"player.rentalReturn.reject": "나중에 구매합니다",
 
 
-
-  "player.rentalOffer.reject": "사양할게요",
-  "player.rentalReturn.accept": "네, 물론이죠!",
-  "player.rentalReturn.reject": "나중에 구매합니다",
-
-  "notify.noInventorySpace": "공간이 부족합니다.",
-  "notify.insufficientFunds": "소지한 돈이 부족합니다."
+	"notify.noInventorySpace": "공간이 부족합니다.",
+	"notify.insufficientFunds": "소지한 돈이 부족합니다."
 }
