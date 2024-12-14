@@ -1,17 +1,35 @@
 ﻿{
 	"config.modEnabled.name": "Mod enabled",
 	"config.modEnabled.tooltip": "Enable or disable the functioning of Rented Tools Refresh.",
+
+	"config.rentalSection.text": "Rental Options",
+	"config.rentalSection.tooltip": "If both options are enabled, the player must choose which level to rent during gameplay.",
+	"config.allowRentBasicLevelTool.name": "Basic level tools",
+	"config.allowRentCurrentLevelTool.name": "Current level tools",
+	"config.allowRentCurrentLevelTool.tooltip": "\"Current\" level is what you're upgrading from.",
+
+	"config.rentalFeeOptionsSection.text": "Rental Fee Options",
 	"config.rentalCost.name": "Tool rental cost",
 	"config.rentalCost.tooltip": "Flat cost to rent a tool.",
+	"config.applyFeeToBasicLevel.name": "Apply fee to basic level",
+	"config.applyFeeToBasicLevel.tooltip": "When disabled, the rental fee will only be charged for \"Current level\" tool rental.",
+
 
 	"blacksmith.rentalReturn": "Would you return that rental tool now?",
-	"blacksmith.rentalOffer": "You can borrow this old {{toolName}} while I'm upgrading yours.",
+	"blacksmith.rentalOffer.base": "Would you like to borrow {{toolNameWithArticle}} while I upgrade yours?",
+	"blacksmith.rentalOffer.noFee": " No charge!",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Only {{currency}}g!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " The basic {{basicToolName}} is free and the {{currentToolName}} is {{currency}}g.",
 	"blacksmith.howToReturn": "Just bring that rental tool back with you when you want to return it to me.",
 
+
+	"player.rentalOffer.basic": "Basic level",
+	"player.rentalOffer.current": "Current level",
 	"player.rentalOffer.accept": "Sure!",
 	"player.rentalOffer.reject": "No thanks",
 	"player.rentalReturn.accept": "Yes, of course!",
 	"player.rentalReturn.reject": "Not now",
+
 
 	"notify.noInventorySpace": "You don't have enough room in your inventory.",
 	"notify.insufficientFunds": "You don't have enough money."

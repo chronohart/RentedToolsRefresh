@@ -1,21 +1,36 @@
 {
 	"config.modEnabled.name": "Mod habilitado",
 	"config.modEnabled.tooltip": "Activar o desactivar el funcionamiento de Rented Tools Refresh.",
+
+	"config.rentalSection.text": "Opciones de alquiler",
+	"config.rentalSection.tooltip": "Si ambas opciones están activadas, el jugador debe elegir qué nivel quiere alquilar durante el juego.",
+	"config.allowRentBasicLevelTool.name": "Herramientas de nivel básico",
+	"config.allowRentCurrentLevelTool.name": "Herramientas de nivel actual",
+	"config.allowRentCurrentLevelTool.tooltip": "El nivel «actual» es el que se está actualizando.",
+
+	"config.rentalFeeOptionsSection.text": "Opciones de alquiler",
 	"config.rentalCost.name": "Coste de alquiler de herramientas",
 	"config.rentalCost.tooltip": "Coste fijo por alquilar una herramienta.",
+	"config.applyFeeToBasicLevel.name": "Aplicar la tasa al nivel básico",
+	"config.applyFeeToBasicLevel.tooltip": "Si se desactiva, sólo se cobrará el alquiler de herramientas de «Nivel actual».",
+
 
 	"blacksmith.rentalReturn": "¿Devolverías ahora esa herramienta de alquiler?",
-	"blacksmith.rentalOffer": "Puedes tomar prestada esta vieja {{toolName}} mientras actualizo la tuya.",
+	"blacksmith.rentalOffer.base": "¿Quieres que te preste {{toolNameWithArticle}} mientras actualizo la tuya?",
+	"blacksmith.rentalOffer.noFee": " Gratis.",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Sólo {{currency}}o!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " El {{basicToolName}} básico es gratuito y el {{currentToolName}} es {{currency}}o.",
 	"blacksmith.howToReturn": "Sólo tienes que traer la herramienta de alquiler cuando quieras devolvérmela.",
 
+
+	"player.rentalOffer.basic": "Nivel básico",
+	"player.rentalOffer.current": "Nivel actual",
 	"player.rentalOffer.accept": "¡Claro!",
+	"player.rentalOffer.reject": "No, gracias.",
+	"player.rentalReturn.accept": "Sí, ¡desde luego!",
+	"player.rentalReturn.reject": "Ahora no",
 
 
-
-  "player.rentalOffer.reject": "No, gracias.",
-  "player.rentalReturn.accept": "Sí, ¡desde luego!",
-  "player.rentalReturn.reject": "Ahora no",
-
-  "notify.noInventorySpace": "No tienes suficiente espacio en el inventario.",
-  "notify.insufficientFunds": "No tienes suficiente dinero."
+	"notify.noInventorySpace": "No tienes suficiente espacio en el inventario.",
+	"notify.insufficientFunds": "No tienes suficiente dinero."
 }

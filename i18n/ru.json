@@ -1,21 +1,36 @@
 {
 	"config.modEnabled.name": "Мод включен",
 	"config.modEnabled.tooltip": "Включите или отключите функцию Rented Tools Refresh.",
+
+	"config.rentalSection.text": "Варианты аренды",
+	"config.rentalSection.tooltip": "Если включены обе опции, игрок должен выбрать, какой уровень арендовать во время игры.",
+	"config.allowRentBasicLevelTool.name": "Инструменты базового уровня",
+	"config.allowRentCurrentLevelTool.name": "Инструменты текущего уровня",
+	"config.allowRentCurrentLevelTool.tooltip": "«Текущий» уровень - это уровень, с которого вы переходите на новый.",
+
+	"config.rentalFeeOptionsSection.text": "Варианты арендной платы",
 	"config.rentalCost.name": "Стоимость аренды инструмента",
 	"config.rentalCost.tooltip": "Стоимость аренды инструмента.",
+	"config.applyFeeToBasicLevel.name": "Применить плату к базовому уровню",
+	"config.applyFeeToBasicLevel.tooltip": "Если отключить эту функцию, плата за аренду будет взиматься только за аренду инструментов «Текущего уровня».",
+
 
 	"blacksmith.rentalReturn": "Вернули бы вы сейчас этот инструмент, взятый напрокат?",
-	"blacksmith.rentalOffer": "Вы можете взять этот старый {{toolName}}, пока я обновляю ваш.",
+	"blacksmith.rentalOffer.base": "Не хотите ли одолжить {{toolNameWithArticle}}, пока я обновляю ваш?",
+	"blacksmith.rentalOffer.noFee": " Бесплатно!",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Только {{currency}} з.!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " Базовый {{basicToolName}} является бесплатным, а {{currentToolName}} - {{currency}} з..",
 	"blacksmith.howToReturn": "Просто возьмите этот инструмент напрокат с собой, когда захотите вернуть его мне.",
 
+
+	"player.rentalOffer.basic": "Базовый уровень",
+	"player.rentalOffer.current": "Текущий уровень",
 	"player.rentalOffer.accept": "Конечно!",
+	"player.rentalOffer.reject": "Нет, спасибо.",
+	"player.rentalReturn.accept": "Да, конечно!",
+	"player.rentalReturn.reject": "Не сейчас",
 
 
-
-  "player.rentalOffer.reject": "Нет, спасибо.",
-  "player.rentalReturn.accept": "Да, конечно!",
-  "player.rentalReturn.reject": "Не сейчас",
-
-  "notify.noInventorySpace": "У вас недостаточно места в инвентаре",
-  "notify.insufficientFunds": "У вас не хватает денег."
+	"notify.noInventorySpace": "У вас недостаточно места в инвентаре",
+	"notify.insufficientFunds": "У вас не хватает денег."
 }

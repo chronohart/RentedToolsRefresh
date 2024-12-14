@@ -3,12 +3,21 @@
 A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.
 
 ## Contents
+* [Features](#features)
 * [Installation](#installation)
 * [Configuration](#configuration)
 * [Planned Features](#planned-features)
 * [Translations](#translations)
 * [Incompatibilities](#incompatibilities)
 * [Credits](#credits)
+
+<a name="features"></a>![Features](images/features.png "Features")
+
+- Upon purchasing a tool upgrade*, Clint will offer to lend the player a replacement tool.
+- The player may choose to rent the basic version of the tool or the version they are upgrading *from*. Configurable
+- The player will be charged a fee to rent. Configurable
+
+*Note: Only the axe, hoe, pickaxe, and watering can from the standard game are currently supported.
 
 <a name="installation"></a>![Installation](images/installation.png "Installation")
 
@@ -30,12 +39,16 @@ The available settings are:
 
 Name | Valid settings | Description
 -----|----------------|------------
-modEnabled | **true**, false | Disable this to stop the mod from functioning.
-toolRentalFee | numeric, **Default: 0** | Change this to change the cost to rent a tool.
+ModEnabled | **true**, false | Disable this to stop the mod from functioning.
+AllowRentBasicLevelTool | true, **false** | Enable this to make Clint offer basic level tools for rent.
+AllowRentCurrentLevelTool | **true**, false | Disable this to stop Clint from offering current level tools for rent.
+RentalFee | numeric, **Default: 0** | Change this to change the cost to rent a tool.*
+ApplyFeeToBasicLevel | **true**, false | Disable this to make **RentalFee** not apply to basic level tool rental.
+
+*Note: If both "AllowRent" options are true and the player's current tool being upgraded is the basic level of the tool, the rental offered will be considered basic when determining the cost to rent.
 
 <a name="planned-features"></a>![Planned Features](images/planned-features.png "Planned Features")
 
-- Config options to control what level of tool can be rented
 - Add option for daily cost for rentals
 
 <a name="translations"></a>![Translations](images/translations.png "Translations")
@@ -43,6 +56,21 @@ toolRentalFee | numeric, **Default: 0** | Change this to change the cost to rent
 This mod includes translations for all in-game dialog as well as GMCM settings and descriptions, into any language supported by the base game. That being said, I only speak English, so translations provided by myself may be poor translations from DeepL or similar. If you would like to submit a translation from an actual person, please don't hesitate to do so via GitHub pull request, linking a translation file in a GitHub issue, or sending me a file directly.
 
 See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.com/Modding:Translations) page for more information about how these translations work.
+
+Translation | Status
+------------|------------------
+default     | [fully translated](/i18n/default.json)
+Chinese     | [translated, partly with DeepL](/i18n/zh.json)
+French      | [translated with DeepL](/i18n/fr.json)
+German      | [translated with DeepL](/i18n/de.json)
+Hungarian   | [translated with DeepL](/i18n/hu.json)
+Italian     | [translated with DeepL](/i18n/it.json)
+Japanese    | [translated with DeepL](/i18n/ja.json)
+Korean      | [translated with DeepL](/i18n/ko.json)
+Portuguese  | [translated with DeepL](/i18n/pt.json)
+Russian     | [translated with DeepL](/i18n/ru.json)
+Spanish     | [translated with DeepL](/i18n/es.json)
+Turkish     | [translated with DeepL](/i18n/tr.json)
 
 <a name="incompatibilities"></a>![Incompatibilities](images/incompatibilities.png "Incompatibilities")
 

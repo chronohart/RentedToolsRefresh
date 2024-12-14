@@ -1,21 +1,36 @@
 {
 	"config.modEnabled.name": "Mod engedélyezve",
 	"config.modEnabled.tooltip": "A Bérelt eszközök frissítése működésének engedélyezése vagy letiltása.",
+
+	"config.rentalSection.text": "Bérlési lehetőségek",
+	"config.rentalSection.tooltip": "Ha mindkét opció engedélyezve van, a játékosnak a játék során ki kell választania, hogy melyik szintet szeretné bérelni.",
+	"config.allowRentBasicLevelTool.name": "Alapszintű eszközök",
+	"config.allowRentCurrentLevelTool.name": "Jelenlegi szintű eszközök",
+	"config.allowRentCurrentLevelTool.tooltip": "A „jelenlegi” szint az, amiről frissítesz.",
+
+	"config.rentalFeeOptionsSection.text": "Bérleti díj opciók",
 	"config.rentalCost.name": "Szerszámbérlés költsége",
 	"config.rentalCost.tooltip": "A szerszámbérlés átalányköltsége.",
+	"config.applyFeeToBasicLevel.name": "Díj alkalmazása az alapszintre",
+	"config.applyFeeToBasicLevel.tooltip": "Ha letiltja, a bérleti díj csak az „Aktuális szint” szerszámbérlés esetén kerül felszámításra.",
+
 
 	"blacksmith.rentalReturn": "Visszaadná most azt a kölcsönzött eszközt?",
-	"blacksmith.rentalOffer": "Kölcsönveheted ezt a régi {{toolName}}, amíg én frissítem a tiédet.",
+	"blacksmith.rentalOffer.base": "Szeretnél kölcsönkérni {{toolNameWithArticle}}, amíg én frissítem a tiédet?",
+	"blacksmith.rentalOffer.noFee": " Nem kell fizetni!",
+	"blacksmith.rentalOffer.sameFeeAllOptions": " Csak {{currency}}g!",
+	"blacksmith.rentalOffer.feeForCurrentLevelOnly": " Az alap {{basicToolName}} ingyenes, a {{currentToolName}} pedig {{currency}}g.",
 	"blacksmith.howToReturn": "Csak hozza vissza a kölcsönzött eszközt, amikor vissza akarja adni nekem.",
 
+
+	"player.rentalOffer.basic": "Alapszint",
+	"player.rentalOffer.current": "Jelenlegi szint",
 	"player.rentalOffer.accept": "Hát persze!",
+	"player.rentalOffer.reject": "Köszönöm, nem",
+	"player.rentalReturn.accept": "Igen, természetesen!",
+	"player.rentalReturn.reject": "Még nem",
 
 
-
-  "player.rentalOffer.reject": "Köszönöm, nem",
-  "player.rentalReturn.accept": "Igen, természetesen!",
-  "player.rentalReturn.reject": "Még nem",
-
-  "notify.noInventorySpace": "Nincs elég hely a tárgymenüdben.",
-  "notify.insufficientFunds": "Nincs elég pénzed."
+	"notify.noInventorySpace": "Nincs elég hely a tárgymenüdben.",
+	"notify.insufficientFunds": "Nincs elég pénzed."
 }
