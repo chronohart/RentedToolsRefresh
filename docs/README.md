@@ -49,7 +49,9 @@ ApplyFeeToBasicLevel | **true**, false | Disable this to make **RentalFee** not 
 
 <a name="planned-features"></a>![Planned Features](images/planned-features.png "Planned Features")
 
+- Support Pan rentals
 - Add option for daily cost for rentals
+- Add option for Clint to refuse returning the player's upgraded tool until the player returns Clint's rented tool(s)
 
 <a name="translations"></a>![Translations](images/translations.png "Translations")
 
@@ -60,7 +62,7 @@ See the Stardew Valley Wiki's [Modding:Translations](https://stardewvalleywiki.c
 Translation | Status
 ------------|------------------
 default     | [fully translated](/i18n/default.json)
-Chinese     | [translated, partly with DeepL](/i18n/zh.json)
+Chinese     | [fully translated](/i18n/zh.json)
 French      | [translated with DeepL](/i18n/fr.json)
 German      | [translated with DeepL](/i18n/de.json)
 Hungarian   | [translated with DeepL](/i18n/hu.json)
@@ -81,7 +83,7 @@ This mod is incompatible with any mods that prevent the following standard dialo
 
 <a name="contributors"></a>![Contributors](images/contributors.png "Contributors")
 
-[@txyyh](https://github.com/txyyh) contributed some of the Simplified Chinese translation
+[@txyyh](https://github.com/txyyh) contributed the Simplified Chinese translation
 
 <a name="credits"></a>![Credits](images/credits.png "Credits")
 
