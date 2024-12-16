@@ -46,7 +46,9 @@ Name - Valid settings (default in [b]bold[/b]) - Description
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/planned-features.png[/img]
 
 [list]
+[*] Support Pan rentals
 [*] Add option for daily cost for rentals
+[*] Add option for Clint to refuse returning the player's upgraded tool until the player returns Clint's rented tool(s)
 [/list]
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/translations.png[/img]
@@ -58,7 +60,7 @@ See the Stardew Valley Wiki's [url=https://stardewvalleywiki.com/Modding:Transla
 Translation status:
 [list]
 [*] [b]default[/b] - fully translated
-[*] [b]Chinese[/b] - translated, partly with DeepL
+[*] [b]Chinese[/b] - fully translated
 [*] [b]French[/b] - translated with DeepL
 [*] [b]German[/b] - translated with DeepL
 [*] [b]Hungarian[/b] - translated with DeepL
@@ -82,7 +84,7 @@ This mod is incompatible with any mods that prevent the following standard dialo
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/a914793fd8742263a29e2b58f224b54135aa56a2/docs/images/contributors.png[/img]
 
-[url=https://github.com/txyyh]@txyyh[/url] contributed some of the Simplified Chinese translation
+[url=https://github.com/txyyh]@txyyh[/url] contributed the Simplified Chinese translation
 
 [img]https://raw.githubusercontent.com/chronohart/RentedToolsRefresh/0545284be10a8534109c1f87ea45395a24d765a0/docs/images/credits.png[/img]
 
