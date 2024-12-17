@@ -347,9 +347,9 @@ namespace RentedToolsRefresh
             );
         }
 
-        private void DisplaySuccessDialog(Farmer who)
+        private void DisplaySuccessDialog()
         {
-            i18n.Get("blacksmith.howToReturn");
+            Game1.DrawDialogue(new Dialogue(BlacksmithNPC, "blacksmith.howToReturn", i18n.Get("blacksmith.howToReturn")));
         }
 
         private Tool? GetFreshTool(Item? tool)
@@ -416,7 +416,7 @@ namespace RentedToolsRefresh
             {   
                 ShopMenu.chargePlayer(who, 0, toolCost);
                 Item item = who.addItemToInventory(toolToRent);
-                DisplaySuccessDialog(Player);
+                DisplaySuccessDialog();
             }
         }
 
