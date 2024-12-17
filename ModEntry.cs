@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -276,13 +276,15 @@ namespace RentedToolsRefresh
             Tool? basicTool = GetFreshTool(toolBeingUpgradedTo);
             if(basicTool == null)
                 return;
-            
-            Tool? currentTool = GetFreshTool(basicTool);
+
+            string? previousToolId = toolBeingUpgradedTo.GetToolData()?.ConventionalUpgradeFrom;
+            if(previousToolId == null)
+                return;
+            Tool currentTool = (Tool)ItemRegistry.Create(previousToolId);
             if(currentTool == null)
                 return;
-            if(toolBeingUpgradedTo.UpgradeLevel > 0)
-                currentTool.UpgradeLevel = toolBeingUpgradedTo.UpgradeLevel - 1;
-            currentTool = (Tool)currentTool.getOne();
+
+            Monitor.Log($"*** currentTool == {currentTool.DisplayName}");
 
             int basicCost = GetToolRentalCost("BASIC");
             int currentCost = GetToolRentalCost("CURRENT");
@@ -335,8 +337,10 @@ namespace RentedToolsRefresh
                         switch (answer)
                         {
                             case "BASIC":
+                                RentTool(whoInCallback, answer, basicTool);
+                                break;
                             case "CURRENT":
-                                RentTool(whoInCallback, answer);
+                                RentTool(whoInCallback, answer, currentTool);
                                 break;
                             case "REJECT":
                                 break;
@@ -352,7 +356,7 @@ namespace RentedToolsRefresh
             i18n.Get("blacksmith.howToReturn");
         }
 
-        private Tool? GetFreshTool(Item? tool)
+        private Tool? GetFreshTool(Item? tool, int? panUpgradeLevel = null)
         {
             if(tool == null)
             {
@@ -376,7 +380,10 @@ namespace RentedToolsRefresh
             }
             else if (tool is Pan)
             {
-                return new Pan();
+                if(panUpgradeLevel != null)
+                    return new Pan(panUpgradeLevel.Value);
+                else
+                    return new Pan();
             }
             else
             {
@@ -385,27 +392,8 @@ namespace RentedToolsRefresh
             }
         }
 
-        private void RentTool(Farmer who, string toolLevel)
+        private void RentTool(Farmer who, string toolLevel, Tool toolToRent)
         {
-            Tool? toolBeingUpgraded = GetToolBeingUpgraded(who);
-            Tool? toolToRent = GetFreshTool(toolBeingUpgraded);
-            if (toolBeingUpgraded == null || toolToRent == null)
-            {
-                return;
-            }
-            else
-            {
-                switch(toolLevel)
-                {
-                    case "BASIC":
-                        toolToRent.UpgradeLevel = 0;
-                        break;
-                    case "CURRENT":
-                        toolToRent.UpgradeLevel = toolBeingUpgraded.UpgradeLevel - 1 <= 0 ? 0 : toolBeingUpgraded.UpgradeLevel - 1;
-                        break;
-                }
-            }
-
             int toolCost = GetToolRentalCost(toolLevel);
 
             if(who.Money < toolCost)

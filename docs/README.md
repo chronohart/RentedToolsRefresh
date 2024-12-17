@@ -17,7 +17,7 @@ A mod for Stardew Valley, allowing players to rent a replacement tool when getti
 - The player may choose to rent the basic version of the tool or the version they are upgrading *from*. Configurable
 - The player will be charged a fee to rent. Configurable
 
-*Note: Only the axe, hoe, pickaxe, and watering can from the standard game are currently supported.
+*Note: Only the axe, hoe, pickaxe, pan, and watering can from the standard game are currently supported.
 
 <a name="installation"></a>![Installation](images/installation.png "Installation")
 
@@ -49,7 +49,6 @@ ApplyFeeToBasicLevel | **true**, false | Disable this to make **RentalFee** not 
 
 <a name="planned-features"></a>![Planned Features](images/planned-features.png "Planned Features")
 
-- Support Pan rentals
 - Add option for daily cost for rentals
 - Add option for Clint to refuse returning the player's upgraded tool until the player returns Clint's rented tool(s)
 
