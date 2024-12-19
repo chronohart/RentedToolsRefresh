@@ -200,8 +200,8 @@ namespace RentedToolsRefresh
         {
             if (who.toolBeingUpgraded.Value != null)
             {
-                if (who.toolBeingUpgraded.Value is Axe || who.toolBeingUpgraded.Value is Pickaxe 
-                    || who.toolBeingUpgraded.Value is Hoe || who.toolBeingUpgraded.Value is WateringCan)
+                if (who.toolBeingUpgraded.Value is Axe || who.toolBeingUpgraded.Value is Pickaxe || who.toolBeingUpgraded.Value is Hoe 
+                    || who.toolBeingUpgraded.Value is WateringCan || who.toolBeingUpgraded.Value is Pan)
                 {
                     return who.toolBeingUpgraded.Value;
                 }
@@ -221,7 +221,7 @@ namespace RentedToolsRefresh
 
             IList<Item> inventory = who.Items;
             List<Tool> tools = inventory
-                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe)
+                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe || tool is Pan)
                 .OfType<Tool>()
                 .ToList();
 
@@ -276,13 +276,15 @@ namespace RentedToolsRefresh
             Tool? basicTool = GetFreshTool(toolBeingUpgradedTo);
             if(basicTool == null)
                 return;
-            
-            Tool? currentTool = GetFreshTool(basicTool);
+
+            string? previousToolId = toolBeingUpgradedTo.GetToolData()?.ConventionalUpgradeFrom;
+            if(previousToolId == null)
+                return;
+            Tool currentTool = (Tool)ItemRegistry.Create(previousToolId);
             if(currentTool == null)
                 return;
-            if(toolBeingUpgradedTo.UpgradeLevel > 0)
-                currentTool.UpgradeLevel = toolBeingUpgradedTo.UpgradeLevel - 1;
-            currentTool = (Tool)currentTool.getOne();
+
+            Monitor.Log($"*** currentTool == {currentTool.DisplayName}");
 
             int basicCost = GetToolRentalCost("BASIC");
             int currentCost = GetToolRentalCost("CURRENT");
@@ -335,8 +337,10 @@ namespace RentedToolsRefresh
                         switch (answer)
                         {
                             case "BASIC":
+                                RentTool(whoInCallback, answer, basicTool);
+                                break;
                             case "CURRENT":
-                                RentTool(whoInCallback, answer);
+                                RentTool(whoInCallback, answer, currentTool);
                                 break;
                             case "REJECT":
                                 break;
@@ -352,7 +356,7 @@ namespace RentedToolsRefresh
             Game1.DrawDialogue(new Dialogue(BlacksmithNPC, "blacksmith.howToReturn", i18n.Get("blacksmith.howToReturn")));
         }
 
-        private Tool? GetFreshTool(Item? tool)
+        private Tool? GetFreshTool(Item? tool, int? panUpgradeLevel = null)
         {
             if(tool == null)
             {
@@ -374,6 +378,13 @@ namespace RentedToolsRefresh
             {
                 return new Hoe();
             }
+            else if (tool is Pan)
+            {
+                if(panUpgradeLevel != null)
+                    return new Pan(panUpgradeLevel.Value);
+                else
+                    return new Pan();
+            }
             else
             {
                 Monitor.Log($"unsupported upgradable tool: {tool?.ToString()}");
@@ -381,27 +392,8 @@ namespace RentedToolsRefresh
             }
         }
 
-        private void RentTool(Farmer who, string toolLevel)
+        private void RentTool(Farmer who, string toolLevel, Tool toolToRent)
         {
-            Tool? toolBeingUpgraded = GetToolBeingUpgraded(who);
-            Tool? toolToRent = GetFreshTool(toolBeingUpgraded);
-            if (toolBeingUpgraded == null || toolToRent == null)
-            {
-                return;
-            }
-            else
-            {
-                switch(toolLevel)
-                {
-                    case "BASIC":
-                        toolToRent.UpgradeLevel = 0;
-                        break;
-                    case "CURRENT":
-                        toolToRent.UpgradeLevel = toolBeingUpgraded.UpgradeLevel - 1 <= 0 ? 0 : toolBeingUpgraded.UpgradeLevel - 1;
-                        break;
-                }
-            }
-
             int toolCost = GetToolRentalCost(toolLevel);
 
             if(who.Money < toolCost)
@@ -425,7 +417,7 @@ namespace RentedToolsRefresh
             // recycle all rented tools
             IList<Item> inventory = who.Items;
             List<Tool> tools = inventory
-                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe)
+                .Where(tool => tool is Axe || tool is Pickaxe || tool is WateringCan || tool is Hoe || tool is Pan)
                 .OfType<Tool>()
                 .ToList();
 
