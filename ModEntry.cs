@@ -329,6 +329,7 @@ namespace RentedToolsRefresh
                 responses[0].responseText = i18n.Get("player.rentalOffer.accept");
             responses.Add(new Response("REJECT", i18n.Get("player.rentalOffer.reject")));
 
+            Tool? toolToRent = null;
             who.currentLocation.createQuestionDialogue(
                 blacksmithDialog,
                 responses.ToArray(),
@@ -337,14 +338,15 @@ namespace RentedToolsRefresh
                         switch (answer)
                         {
                             case "BASIC":
-                                RentTool(whoInCallback, answer, basicTool);
+                                toolToRent = basicTool;
                                 break;
                             case "CURRENT":
-                                RentTool(whoInCallback, answer, currentTool);
+                                toolToRent = currentTool;
                                 break;
                             case "REJECT":
-                                break;
+                                return;
                         }
+                        RentTool(whoInCallback, answer, toolToRent);
                         return;
                     },
                 BlacksmithNPC
@@ -392,8 +394,11 @@ namespace RentedToolsRefresh
             }
         }
 
-        private void RentTool(Farmer who, string toolLevel, Tool toolToRent)
+        private void RentTool(Farmer who, string toolLevel, Tool? toolToRent)
         {
+            if(toolToRent == null)
+                return;
+
             int toolCost = GetToolRentalCost(toolLevel);
 
             if(who.Money < toolCost)
