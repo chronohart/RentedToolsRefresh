@@ -25,11 +25,11 @@ namespace RentedToolsRefresh
 
             Config = Helper.ReadConfig<ModConfig>();
             Config.ValidateConfigFile();
-            helper.WriteConfig(Config);
+            Helper.WriteConfig(Config);
 
             Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
-            helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
+            Helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
             Helper.Events.Display.MenuChanged += OnMenuChanged;
         }
 
@@ -157,16 +157,20 @@ namespace RentedToolsRefresh
             {
                 if(GetToolBeingUpgraded(Player) != null)
                 {
-                    if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
+                    RentalTracking? tracking = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
+                    if(tracking != null && tracking.PlayerHasRentedTool == false)
                     {
-                        if(dialogueBox.characterDialogue != null)
+                        if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
                         {
-                            // first, ensure the offer is only ever made after one of two very specific lines of dialogue
-                            if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
-                                || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
+                            if(dialogueBox.characterDialogue != null)
                             {
-                                // next, ensure player doesn't already have a rented tool
-                                result = HasRentedTools(Player) == false;
+                                // first, ensure the offer is only ever made after one of two very specific lines of dialogue
+                                if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
+                                    || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
+                                {
+                                    // next, ensure player doesn't already have a rented tool
+                                    result = HasRentedTools(Player) == false;
+                                }
                             }
                         }
                     }
@@ -414,6 +418,10 @@ namespace RentedToolsRefresh
                 ShopMenu.chargePlayer(who, 0, toolCost);
                 Item item = who.addItemToInventory(toolToRent);
                 DisplaySuccessDialog();
+
+                RentalTracking tracking = new RentalTracking();
+                tracking.PlayerHasRentedTool = true;
+                Helper.Data.WriteSaveData("RentalTracking", tracking);
             }
         }
 
@@ -436,6 +444,13 @@ namespace RentedToolsRefresh
             foreach (Tool tool in toolsToRemove)
             {
                 who.removeItemFromInventory(tool);
+
+                RentalTracking? tracking = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
+                if(tracking == null)
+                    tracking = new RentalTracking();
+
+                tracking.PlayerHasRentedTool = false;
+                Helper.Data.WriteSaveData("RentalTracking", tracking);
             }
         }
 
