@@ -11,6 +11,8 @@
 	"config.rentalFeeOptionsSection.text": "Options de frais de location",
 	"config.rentalCost.name": "Coût de location des outils",
 	"config.rentalCost.tooltip": "Coût forfaitaire pour la location d'un outil.",
+	"config.dailyFee.name": "Daily fee",
+	"config.dailyFee.tooltip": "Amount charged at the beginning of each new day when player is in possession of a rental tool.",
 	"config.applyFeeToBasicLevel.name": "Appliquer une redevance au niveau de base",
 	"config.applyFeeToBasicLevel.tooltip": "Lorsque cette option est désactivée, les frais de location ne seront facturés que pour la location d'outils de « niveau courant ».",
 

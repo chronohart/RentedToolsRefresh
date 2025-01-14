@@ -11,6 +11,8 @@
 	"config.rentalFeeOptionsSection.text": "Rental Fee Options",
 	"config.rentalCost.name": "Tool rental cost",
 	"config.rentalCost.tooltip": "Flat cost to rent a tool.",
+	"config.dailyFee.name": "Daily fee",
+	"config.dailyFee.tooltip": "Amount charged at the beginning of each new day when player is in possession of a rental tool.",
 	"config.applyFeeToBasicLevel.name": "Apply fee to basic level",
 	"config.applyFeeToBasicLevel.tooltip": "When disabled, the rental fee will only be charged for \"Current level\" tool rental.",
 

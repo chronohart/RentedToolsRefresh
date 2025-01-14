@@ -11,6 +11,8 @@
 	"config.rentalFeeOptionsSection.text": "Kiralama Ücreti Seçenekleri",
 	"config.rentalCost.name": "Alet kiralama maliyeti",
 	"config.rentalCost.tooltip": "Bir araç kiralamak için sabit maliyet.",
+	"config.dailyFee.name": "Daily fee",
+	"config.dailyFee.tooltip": "Amount charged at the beginning of each new day when player is in possession of a rental tool.",
 	"config.applyFeeToBasicLevel.name": "Temel seviyeye ücret uygulayın",
 	"config.applyFeeToBasicLevel.tooltip": "Devre dışı bırakıldığında, kiralama ücreti yalnızca “Mevcut seviye” araç kiralama için tahsil edilecektir.",
 

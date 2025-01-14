@@ -15,6 +15,12 @@ namespace RentedToolsRefresh
                             }
         public bool ApplyFeeToBasicLevel { get; set; }
 
+        private int _dailyFee;
+        public int DailyFee {
+                                get { return _dailyFee; }
+                                set { _dailyFee = Math.Max(0, value); }
+                            }
+
         // legacy options
         public bool? modEnabled { private get; set; }
         public int? toolRentalFee { private get; set; }
@@ -28,6 +34,8 @@ namespace RentedToolsRefresh
             
             RentalFee = 0;
             ApplyFeeToBasicLevel = true;
+
+            DailyFee = 0;
         }
 
         public void ValidateConfigFile()
@@ -36,6 +44,9 @@ namespace RentedToolsRefresh
 
             if(RentalFee < 0)
                 RentalFee = _rentalFee;
+
+            if(DailyFee < 0)
+                DailyFee = _dailyFee;
         }
 
         private void UpdateConfigToV110()

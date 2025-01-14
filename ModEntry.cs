@@ -1,4 +1,4 @@
-﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -25,11 +25,12 @@ namespace RentedToolsRefresh
 
             Config = Helper.ReadConfig<ModConfig>();
             Config.ValidateConfigFile();
-            Helper.WriteConfig(Config);
+            helper.WriteConfig(Config);
 
             Helper.Events.GameLoop.GameLaunched += OnGameLaunched;
 
-            Helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
+            helper.Events.GameLoop.SaveLoaded += InitOnSaveLoaded;
+            Helper.Events.GameLoop.DayStarted += OnStartNewDay;
             Helper.Events.Display.MenuChanged += OnMenuChanged;
         }
 
@@ -98,6 +99,15 @@ namespace RentedToolsRefresh
                 min: 0
             );
 
+            configMenu.AddNumberOption(
+                mod: ModManifest,
+                name: () => i18n.Get("config.dailyFee.name"),
+                tooltip: () => i18n.Get("config.dailyFee.tooltip"),
+                getValue: () => Config.DailyFee,
+                setValue: value => Config.DailyFee = value,
+                min: 0
+            );
+
             configMenu.AddBoolOption(
                 mod: ModManifest,
                 name: () => i18n.Get("config.applyFeeToBasicLevel.name"),
@@ -134,6 +144,13 @@ namespace RentedToolsRefresh
             IsInited = true;
         }
 
+        private void OnStartNewDay(object? sender, DayStartedEventArgs e)
+        {
+            RentalTracking? tracking = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
+            if(tracking != null)
+                ChargeDailyFee();
+        }
+
         private void OnMenuChanged(object? sender, MenuChangedEventArgs e)
         {
             if (Config.ModEnabled && IsInited && AtBlacksmithCounter(Player))
@@ -149,6 +166,20 @@ namespace RentedToolsRefresh
             }
         }
 
+        private void ChargeDailyFee()
+        {
+            int dailyFee = Config.DailyFee;
+
+            if(Player.Money < dailyFee)
+            {
+                Game1.drawObjectDialogue(i18n.Get("notify.insufficientFunds"));
+            }
+            else
+            {   
+                ShopMenu.chargePlayer(Player, 0, dailyFee);
+            }
+        }
+
         private bool ShouldOfferRental(MenuChangedEventArgs e)
         {
             bool result = false;
@@ -157,20 +188,16 @@ namespace RentedToolsRefresh
             {
                 if(GetToolBeingUpgraded(Player) != null)
                 {
-                    RentalTracking? tracking = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
-                    if(tracking != null && tracking.PlayerHasRentedTool == false)
+                    if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
                     {
-                        if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
+                        if(dialogueBox.characterDialogue != null)
                         {
-                            if(dialogueBox.characterDialogue != null)
+                            // first, ensure the offer is only ever made after one of two very specific lines of dialogue
+                            if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
+                                || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
                             {
-                                // first, ensure the offer is only ever made after one of two very specific lines of dialogue
-                                if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
-                                    || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
-                                {
-                                    // next, ensure player doesn't already have a rented tool
-                                    result = HasRentedTools(Player) == false;
-                                }
+                                // next, ensure player doesn't already have a rented tool
+                                result = HasRentedTools(Player) == false;
                             }
                         }
                     }
@@ -418,10 +445,6 @@ namespace RentedToolsRefresh
                 ShopMenu.chargePlayer(who, 0, toolCost);
                 Item item = who.addItemToInventory(toolToRent);
                 DisplaySuccessDialog();
-
-                RentalTracking tracking = new RentalTracking();
-                tracking.PlayerHasRentedTool = true;
-                Helper.Data.WriteSaveData("RentalTracking", tracking);
             }
         }
 
@@ -444,13 +467,6 @@ namespace RentedToolsRefresh
             foreach (Tool tool in toolsToRemove)
             {
                 who.removeItemFromInventory(tool);
-
-                RentalTracking? tracking = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
-                if(tracking == null)
-                    tracking = new RentalTracking();
-
-                tracking.PlayerHasRentedTool = false;
-                Helper.Data.WriteSaveData("RentalTracking", tracking);
             }
         }
 

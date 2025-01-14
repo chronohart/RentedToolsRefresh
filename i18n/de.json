@@ -11,6 +11,8 @@
 	"config.rentalFeeOptionsSection.text": "Mietpreis-Optionen",
 	"config.rentalCost.name": "Kosten für Werkzeugmiete",
 	"config.rentalCost.tooltip": "Pauschale Kosten für die Miete eines Werkzeugs.",
+	"config.dailyFee.name": "Daily fee",
+	"config.dailyFee.tooltip": "Amount charged at the beginning of each new day when player is in possession of a rental tool.",
 	"config.applyFeeToBasicLevel.name": "Gebühr auf die Grundstufe anwenden",
 	"config.applyFeeToBasicLevel.tooltip": "Wenn diese Funktion deaktiviert ist, wird die Leihgebühr nur für den Verleih von Werkzeugen der „aktuellen Stufe“ berechnet.",
 

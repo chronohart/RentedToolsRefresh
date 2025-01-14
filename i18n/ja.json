@@ -11,6 +11,8 @@
 	"config.rentalFeeOptionsSection.text": "レンタル料金オプション",
 	"config.rentalCost.name": "工具レンタル代",
 	"config.rentalCost.tooltip": "道具のレンタル料は一律。",
+	"config.dailyFee.name": "Daily fee",
+	"config.dailyFee.tooltip": "Amount charged at the beginning of each new day when player is in possession of a rental tool.",
 	"config.applyFeeToBasicLevel.name": "基本レベルに料金を適用",
 	"config.applyFeeToBasicLevel.tooltip": "無効にすると、レンタル料は「現在のレベル」のツールレンタルのみに課金されます。",
 

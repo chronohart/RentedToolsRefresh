@@ -11,6 +11,8 @@
 	"config.rentalFeeOptionsSection.text": "Bérleti díj opciók",
 	"config.rentalCost.name": "Szerszámbérlés költsége",
 	"config.rentalCost.tooltip": "A szerszámbérlés átalányköltsége.",
+	"config.dailyFee.name": "Daily fee",
+	"config.dailyFee.tooltip": "Amount charged at the beginning of each new day when player is in possession of a rental tool.",
 	"config.applyFeeToBasicLevel.name": "Díj alkalmazása az alapszintre",
 	"config.applyFeeToBasicLevel.tooltip": "Ha letiltja, a bérleti díj csak az „Aktuális szint” szerszámbérlés esetén kerül felszámításra.",
 
