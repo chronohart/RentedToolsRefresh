@@ -18,6 +18,7 @@ namespace RentedToolsRefresh
         private NPC? BlacksmithNPC;
         private ITranslationHelper i18n;
         private List<Vector2> BlacksmithCounterTiles;
+        private RentalTracking? RentalTracker;
 
         public override void Entry(IModHelper helper)
         {
@@ -126,6 +127,9 @@ namespace RentedToolsRefresh
             BlacksmithCounterTiles = new List<Vector2>();
 
             Player = Game1.player;
+            RentalTracker = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
+            if(RentalTracker == null)
+                RentalTracker = new RentalTracking();
             BlacksmithCounterTiles.Add(new Vector2(3f, 15f));
             foreach (NPC npc in Utility.getAllCharacters())
             {
@@ -184,11 +188,11 @@ namespace RentedToolsRefresh
         {
             bool result = false;
 
-            if(Game1.activeClickableMenu == null)
+            if(HasRentedTools(Player) == false)
             {
-                if(GetToolBeingUpgraded(Player) != null)
+                if(Game1.activeClickableMenu == null)
                 {
-                    if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
+                    if(GetToolBeingUpgraded(Player) != null)
                     {
                         if(dialogueBox.characterDialogue != null)
                         {
@@ -196,8 +200,13 @@ namespace RentedToolsRefresh
                             if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
                                 || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
                             {
-                                // next, ensure player doesn't already have a rented tool
-                                result = HasRentedTools(Player) == false;
+                                // first, ensure the offer is only ever made after one of two very specific lines of dialogue
+                                if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
+                                    || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
+                                {
+                                    // next, ensure player doesn't already have a rented tool
+                                    result = true;
+                                }
                             }
                         }
                     }
@@ -211,16 +220,19 @@ namespace RentedToolsRefresh
         {
             bool result = false;
 
-            if(Game1.activeClickableMenu == null
-                && Player.toolBeingUpgraded.Value == null
-                && e.NewMenu == null)
+            if(HasRentedTools(Player))
             {
-                if(e.OldMenu != null
-                    && ((e.OldMenu is DialogueBox dialogueBox 
-                            && dialogueBox.dialogues.FirstOrDefault() != i18n.Get("blacksmith.rentalReturn"))
-                        || (e.OldMenu is ShopMenu shopMenu && shopMenu.ShopId == "Blacksmith")))
+                if(Game1.activeClickableMenu == null
+                    && Player.toolBeingUpgraded.Value == null
+                    && e.NewMenu == null)
                 {
-                    result = HasRentedTools(Player);
+                    if(e.OldMenu != null
+                        && ((e.OldMenu is DialogueBox dialogueBox 
+                                && dialogueBox.dialogues.FirstOrDefault() != i18n.Get("blacksmith.rentalReturn"))
+                            || (e.OldMenu is ShopMenu shopMenu && shopMenu.ShopId == "Blacksmith")))
+                    {
+                        result = CarryingRentedTools(Player);
+                    }
                 }
             }
 
@@ -246,6 +258,17 @@ namespace RentedToolsRefresh
         }
 
         private bool HasRentedTools(Farmer who)
+        {
+            
+            bool result = false;
+
+            if(RentalTracker != null)
+                result = RentalTracker.PlayerHasRentedTool;
+
+            return result;
+        }
+
+        private bool CarryingRentedTools(Farmer who)
         {
             
             bool result = false;
@@ -445,6 +468,9 @@ namespace RentedToolsRefresh
                 ShopMenu.chargePlayer(who, 0, toolCost);
                 Item item = who.addItemToInventory(toolToRent);
                 DisplaySuccessDialog();
+
+                RentalTracker.PlayerHasRentedTool = true;
+                Helper.Data.WriteSaveData("RentalTracking", RentalTracker);
             }
         }
 
@@ -467,6 +493,9 @@ namespace RentedToolsRefresh
             foreach (Tool tool in toolsToRemove)
             {
                 who.removeItemFromInventory(tool);
+
+                RentalTracker.PlayerHasRentedTool = false;
+                Helper.Data.WriteSaveData("RentalTracking", RentalTracker);
             }
         }
 
