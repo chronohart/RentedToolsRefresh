@@ -1,4 +1,4 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
@@ -100,6 +100,14 @@ namespace RentedToolsRefresh
                 min: 0
             );
 
+            configMenu.AddBoolOption(
+                mod: ModManifest,
+                name: () => i18n.Get("config.applyFeeToBasicLevel.name"),
+                tooltip: () => i18n.Get("config.applyFeeToBasicLevel.tooltip"),
+                getValue: () => Config.ApplyFeeToBasicLevel,
+                setValue: value => Config.ApplyFeeToBasicLevel = value
+            );
+
             configMenu.AddNumberOption(
                 mod: ModManifest,
                 name: () => i18n.Get("config.dailyFee.name"),
@@ -107,14 +115,6 @@ namespace RentedToolsRefresh
                 getValue: () => Config.DailyFee,
                 setValue: value => Config.DailyFee = value,
                 min: 0
-            );
-
-            configMenu.AddBoolOption(
-                mod: ModManifest,
-                name: () => i18n.Get("config.applyFeeToBasicLevel.name"),
-                tooltip: () => i18n.Get("config.applyFeeToBasicLevel.tooltip"),
-                getValue: () => Config.ApplyFeeToBasicLevel,
-                setValue: value => Config.ApplyFeeToBasicLevel = value
             );
         }
 
@@ -128,8 +128,7 @@ namespace RentedToolsRefresh
 
             Player = Game1.player;
             RentalTracker = Helper.Data.ReadSaveData<RentalTracking>("RentalTracking");
-            if(RentalTracker == null)
-                RentalTracker = new RentalTracking();
+            RentalTracker ??= new RentalTracking();
             BlacksmithCounterTiles.Add(new Vector2(3f, 15f));
             foreach (NPC npc in Utility.getAllCharacters())
             {
@@ -179,8 +178,11 @@ namespace RentedToolsRefresh
                 Game1.drawObjectDialogue(i18n.Get("notify.insufficientFunds"));
             }
             else
-            {   
-                ShopMenu.chargePlayer(Player, 0, dailyFee);
+            {
+                RentalTracker ??= new RentalTracking();
+                    
+                RentalTracker.AccruedDebt += dailyFee;
+                //ShopMenu.chargePlayer(Player, 0, dailyFee);
             }
         }
 
@@ -194,17 +196,14 @@ namespace RentedToolsRefresh
                 {
                     if(GetToolBeingUpgraded(Player) != null)
                     {
-                        if(dialogueBox.characterDialogue != null)
+                        if(e.OldMenu != null && e.OldMenu is DialogueBox dialogueBox)
                         {
-                            // first, ensure the offer is only ever made after one of two very specific lines of dialogue
-                            if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
-                                || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
+                            if(dialogueBox.characterDialogue != null)
                             {
                                 // first, ensure the offer is only ever made after one of two very specific lines of dialogue
                                 if(dialogueBox.characterDialogue.TranslationKey == @"Strings\StringsFromCSFiles:Tool.cs.14317"
                                     || dialogueBox.characterDialogue.TranslationKey == @"Data\ExtraDialogue:Clint_StillWorking")
                                 {
-                                    // next, ensure player doesn't already have a rented tool
                                     result = true;
                                 }
                             }
@@ -263,7 +262,7 @@ namespace RentedToolsRefresh
             bool result = false;
 
             if(RentalTracker != null)
-                result = RentalTracker.PlayerHasRentedTool;
+                result = RentalTracker.HasRentedTool;
 
             return result;
         }
@@ -469,7 +468,9 @@ namespace RentedToolsRefresh
                 Item item = who.addItemToInventory(toolToRent);
                 DisplaySuccessDialog();
 
-                RentalTracker.PlayerHasRentedTool = true;
+                RentalTracker ??= new RentalTracking();
+
+                RentalTracker.HasRentedTool = true;
                 Helper.Data.WriteSaveData("RentalTracking", RentalTracker);
             }
         }
@@ -494,7 +495,16 @@ namespace RentedToolsRefresh
             {
                 who.removeItemFromInventory(tool);
 
-                RentalTracker.PlayerHasRentedTool = false;
+                RentalTracker ??= new RentalTracking();
+
+                RentalTracker.HasRentedTool = false;
+
+                if(Player.Money >= RentalTracker.AccruedDebt)
+                {
+                    ShopMenu.chargePlayer(Player, 0, RentalTracker.AccruedDebt);
+                    RentalTracker.AccruedDebt = 0;
+                }
+                
                 Helper.Data.WriteSaveData("RentalTracking", RentalTracker);
             }
         }

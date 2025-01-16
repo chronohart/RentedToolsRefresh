@@ -2,11 +2,14 @@ namespace RentedToolsRefresh
 {
     public sealed class RentalTracking
     {
-        public bool PlayerHasRentedTool { get; set; }
+        public bool HasRentedTool { get; set; }
+
+        public int AccruedDebt { get; set; }
 
         public RentalTracking()
         {
-            PlayerHasRentedTool = false;
+            HasRentedTool = false;
+            AccruedDebt = 0;
         }
     }
 }

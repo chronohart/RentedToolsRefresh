@@ -16,7 +16,8 @@ namespace RentedToolsRefresh
         public bool ApplyFeeToBasicLevel { get; set; }
 
         private int _dailyFee;
-        public int DailyFee {
+        public int DailyFee
+                            {
                                 get { return _dailyFee; }
                                 set { _dailyFee = Math.Max(0, value); }
                             }
