@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This repository has permanently migrated to https://git.gay/chronohart/RentedToolsRefresh.
+
 ![Rented Tools Refresh](images/title.png "Rented Tools Refresh")
 
 A mod for Stardew Valley, allowing players to rent a replacement tool when getting their own upgraded from Clint.
